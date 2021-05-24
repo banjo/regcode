@@ -1,5 +1,3 @@
-import { getMethodParameter } from "../services/methodService";
-
 interface IMethods {
     exact: Function;
     regex: Function;
@@ -9,8 +7,8 @@ interface IMethods {
 }
 
 const Methods: IMethods = {
-    exact: (parameter: string, hasQuantifier = false): string => {
-        return hasQuantifier ? `(${parameter})` : parameter;
+    exact: (parameter: string): string => {
+        return parameter;
     },
     regex: (parameter: string): string => {
         return parameter;

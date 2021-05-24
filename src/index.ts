@@ -6,6 +6,6 @@ if (statement) console.log(new RegCode().convert(statement));
 export { RegCode };
 
 const regexConvert = new RegCode();
-const regexCode = "regex(ab)c){oneOrMore} exact(ab)c)";
+const regexCode = "oneOf(abc){oneOrMore}[or][letter]{3} exact(ab)c)";
 const result = regexConvert.convert(regexCode);
 console.log(result);

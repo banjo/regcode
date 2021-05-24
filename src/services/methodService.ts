@@ -25,13 +25,15 @@ function useMethod(definition: string, hasQuantifier: boolean) {
         process.exit(1);
     }
 
+    let result;
     if (method.name === Methods.regex.name) {
-        return method(parameter, hasQuantifier);
+        result = method(parameter);
+    } else {
+        const escapedParameter = addEscapeToEscapers(parameter);
+        result = method(escapedParameter);
     }
 
-    const escapedParameter = addEscapeToEscapers(parameter);
-
-    return method(escapedParameter, hasQuantifier);
+    return hasQuantifier ? `(${result})` : result;
 }
 
 function getMethodParameter(definition: string) {
