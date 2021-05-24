@@ -3,6 +3,8 @@ interface IMethods {
     regex: Function;
     oneOf: Function;
     notOneOf: Function;
+    endsWith: Function;
+    startsWith: Function;
     [method: string]: Function;
 }
 
@@ -18,6 +20,12 @@ const Methods: IMethods = {
     },
     notOneOf: (parameter: string): string => {
         return `[^${parameter}]`;
+    },
+    endsWith: (parameter: string): string => {
+        return `(${parameter})$`;
+    },
+    startsWith: (parameter: string): string => {
+        return `^(${parameter})`;
     },
 };
 

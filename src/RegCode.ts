@@ -11,7 +11,7 @@ import { handleOr } from "./services/statementService";
 
 export class RegCode {
     // TODO: positive/negative lookbehind?
-    // TODO: method: startsWith, endsWith
+    // TODO: use or within parameters
     // TODO: add error handling
     // TODO: check if valid regex, in methods and in general
 
