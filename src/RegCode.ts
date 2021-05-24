@@ -3,6 +3,7 @@ import { Splitters } from "./helpers/splitters";
 import { appendQuantifier, getQuantifier } from "./services/quantifierService";
 import { getDefinition, handleDefinition } from "./services/definitionService";
 import { handleOr } from "./services/statementService";
+import { RegexHelpers } from "./helpers/regexHelpers";
 
 // statement:         oneOf([number]){3}[or][letter]{3}
 // definition:        [number], oneOf()
@@ -12,6 +13,7 @@ import { handleOr } from "./services/statementService";
 export class RegCode {
     // TODO: positive/negative lookbehind?
     // TODO: use or within parameters
+    // TODO: add short (greedy) to quantifiers
     // TODO: add error handling
     // TODO: check if valid regex, in methods and in general
 
@@ -20,6 +22,7 @@ export class RegCode {
     }
 
     private result = "";
+    private placeholder = "PLACEHOLDERFOREARLYORSTATEMENT";
 
     private handleRegex(regex: string): string {
         const statements = regex.split(Splitters.divider);
@@ -30,14 +33,34 @@ export class RegCode {
             ({ statement, usedOrStatement, orQuantifier } =
                 handleOr(statement));
 
+            // temporarily remove [or] within functions
+            let orParameter = statement.match(
+                RegexHelpers.methodParameterWithOr
+            );
+            if (orParameter) {
+                orParameter?.forEach((m) => {
+                    statement = statement.replace(m, this.placeholder);
+                });
+            }
+
             const parts = statement.split(Splitters.or);
 
             // set full or statement in brackets
             if (usedOrStatement) this.result += "(";
 
             let index = -1;
-            for (const part of parts) {
+            let orPlaceholderIndex = 0;
+            for (let part of parts) {
                 index++;
+
+                // replace placeholder with actual value
+                if (part.includes(this.placeholder)) {
+                    part = part.replace(
+                        this.placeholder,
+                        orParameter![orPlaceholderIndex]
+                    );
+                }
+
                 const definition = getDefinition(part);
                 const quantifier = getQuantifier(part);
 

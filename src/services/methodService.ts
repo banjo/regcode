@@ -2,8 +2,13 @@ import { Methods } from "../helpers/methods";
 import { RegexHelpers } from "../helpers/regexHelpers";
 import { convertDefinitionToValues } from "./valueService";
 import { addEscapeToEscapers } from "./statementService";
+import { Splitters } from "../helpers/splitters";
+import { RegexDefinitions } from "../helpers/regexDefinitions";
+
+const PLACEHOLDER = "PLACEHOLDERFORORSTATEMENT";
 
 function handleMethod(definition: string, hasQuantifier: boolean) {
+    definition = definition.replace(Splitters.or, PLACEHOLDER);
     definition = convertDefinitionToValues(definition);
 
     return useMethod(definition, hasQuantifier);
@@ -29,7 +34,11 @@ function useMethod(definition: string, hasQuantifier: boolean) {
     if (method.name === Methods.regex.name) {
         result = method(parameter);
     } else {
-        const escapedParameter = addEscapeToEscapers(parameter);
+        let escapedParameter = addEscapeToEscapers(parameter);
+        escapedParameter = escapedParameter.replace(
+            PLACEHOLDER,
+            RegexDefinitions.or
+        );
         result = method(escapedParameter);
     }
 
