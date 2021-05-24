@@ -3,15 +3,13 @@ import { RegexHelpers } from "../helpers/regexHelpers";
 import { Splitters } from "../helpers/splitters";
 import { getMethodParameter } from "./methodService";
 
-function addEscapeToEscapers(statement: string) {
-    let methodName = statement.split("(")[0];
-    let result = getMethodParameter(statement);
-
+function addEscapeToEscapers(parameters: string) {
+    let result = parameters;
     Escapers.split("").forEach((e) => {
         result = result.replace(e, "\\" + e);
     });
 
-    return `${methodName}(${result})`;
+    return result;
 }
 
 function handleOr(statement: string) {

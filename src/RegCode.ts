@@ -12,8 +12,8 @@ import { handleOr } from "./services/statementService";
 export class RegCode {
     // TODO: positive/negative lookbehind?
     // TODO: method: startsWith, endsWith
-    // TODO: change methods to methods in object
     // TODO: add error handling
+    // TODO: check if valid regex, in methods and in general
 
     convert(regex: string): string {
         return this.handleRegex(regex);
@@ -45,9 +45,9 @@ export class RegCode {
                 this.result += handleDefinition(definition, hasQuantifier);
                 this.result += appendQuantifier(quantifier);
 
-                const shouldAddOrSymol =
+                const shouldAddOrSymbol =
                     usedOrStatement && index < parts.length - 1;
-                if (shouldAddOrSymol) this.result += RegexDefinitions.or;
+                if (shouldAddOrSymbol) this.result += RegexDefinitions.or;
             }
 
             // close brackets for full statement

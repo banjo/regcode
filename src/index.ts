@@ -6,6 +6,6 @@ if (statement) console.log(new RegCode().convert(statement));
 export { RegCode };
 
 const regexConvert = new RegCode();
-const regexCode = "exact(ab)c){3} exact(abc)";
+const regexCode = "regex(ab)c) exact(ab)c)";
 const result = regexConvert.convert(regexCode);
 console.log(result);

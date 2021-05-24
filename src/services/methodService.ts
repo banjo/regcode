@@ -4,62 +4,59 @@ import { convertDefinitionToValues } from "./valueService";
 import { addEscapeToEscapers } from "./statementService";
 
 function handleMethod(definition: string, hasQuantifier: boolean) {
-    let result = "";
-
     definition = convertDefinitionToValues(definition);
 
-    // handle regex first as it is the only one that does not add escape to characters
-    if (isMethod(definition, Methods.regex)) {
-        const match = getMethodParameter(definition);
-        result += match;
-        return;
-    }
-
-    definition = addEscapeToEscapers(definition);
-
-    if (isMethod(definition, Methods.exact)) {
-        const match = getMethodParameter(definition);
-
-        result += hasQuantifier ? `(${match})` : match;
-    } else if (isMethod(definition, Methods.oneOf)) {
-        const match = getMethodParameter(definition);
-
-        if (match.length === 0) {
-            return;
-        }
-
-        result += `[${match}]`;
-    } else if (isMethod(definition, Methods.notOneOf)) {
-        const match = getMethodParameter(definition);
-
-        if (match.length === 0) {
-            return;
-        }
-
-        result += `[^${match}]`;
-    } else {
-        console.error("Could not find method or value");
-    }
-
-    return result;
+    return useMethod(definition, hasQuantifier);
 }
 
-function isMethod(definition: string, helper: string) {
-    return definition.startsWith(helper + "(");
+function useMethod(definition: string, hasQuantifier: boolean) {
+    const methodName = getMethodName(definition);
+
+    const method = Methods[methodName];
+
+    if (!method) {
+        console.error(`Method ${definition} does not exist`);
+        process.exit(1);
+    }
+
+    const parameter = getMethodParameter(definition);
+    if (parameter.length === 0) {
+        console.error(`${methodName} method expects at least one argument`);
+        process.exit(1);
+    }
+
+    if (method.name === Methods.regex.name) {
+        return method(parameter, hasQuantifier);
+    }
+
+    const escapedParameter = addEscapeToEscapers(parameter);
+
+    return method(escapedParameter, hasQuantifier);
 }
 
 function getMethodParameter(definition: string) {
-    let methodNameMatch = definition.match(RegexHelpers.untilMethodStart);
+    let methodName = getMethodName(definition);
 
-    if (!methodNameMatch) {
+    if (!methodName) {
         console.error(
             `Method parameter cannot be found for definition: ${definition}`
         );
         process.exit(1);
     }
 
-    const methodName = methodNameMatch[0];
     return definition.replace(methodName, "").slice(0, -1).slice(1);
+}
+
+function getMethodName(definition: string) {
+    const match = definition.match(RegexHelpers.untilMethodStart);
+    if (!match) {
+        console.error(
+            `Could not get method name from definition ${definition}`
+        );
+        process.exit(1);
+    }
+
+    return match[0];
 }
 
 export { handleMethod, getMethodParameter };
