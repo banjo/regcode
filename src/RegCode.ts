@@ -12,7 +12,6 @@ import { handleOr } from "./services/statementService";
 export class RegCode {
     // TODO: positive/negative lookbehind?
     // TODO: method: startsWith, endsWith
-    // TODO: do not embrace exact in brackets when no quantifier
     // TODO: change methods to methods in object
     // TODO: add error handling
 
@@ -42,7 +41,8 @@ export class RegCode {
                 const definition = getDefinition(part);
                 const quantifier = getQuantifier(part);
 
-                this.result += handleDefinition(definition);
+                const hasQuantifier = !!quantifier;
+                this.result += handleDefinition(definition, hasQuantifier);
                 this.result += appendQuantifier(quantifier);
 
                 const shouldAddOrSymol =

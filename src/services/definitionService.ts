@@ -27,7 +27,7 @@ function getDefinition(part: string) {
     return method;
 }
 
-function handleDefinition(definition: string) {
+function handleDefinition(definition: string, hasQuantifier: boolean) {
     const value = getValueFromDefinition(definition);
 
     if (value) {
@@ -35,7 +35,7 @@ function handleDefinition(definition: string) {
         return RegexDefinitions[value.toLowerCase()];
     }
 
-    return handleMethod(definition);
+    return handleMethod(definition, hasQuantifier);
 }
 
 export { handleDefinition, getDefinition };

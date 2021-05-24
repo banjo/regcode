@@ -3,7 +3,7 @@ import { RegexHelpers } from "../helpers/regexHelpers";
 import { convertDefinitionToValues } from "./valueService";
 import { addEscapeToEscapers } from "./statementService";
 
-function handleMethod(definition: string) {
+function handleMethod(definition: string, hasQuantifier: boolean) {
     let result = "";
 
     definition = convertDefinitionToValues(definition);
@@ -20,7 +20,7 @@ function handleMethod(definition: string) {
     if (isMethod(definition, Methods.exact)) {
         const match = getMethodParameter(definition);
 
-        result += `(${match})`;
+        result += hasQuantifier ? `(${match})` : match;
     } else if (isMethod(definition, Methods.oneOf)) {
         const match = getMethodParameter(definition);
 

@@ -1,7 +1,7 @@
 {
     "name": "regcode",
     "version": "1.0.0",
-    "description": "Python like syntax to easily create Regular Expressions with code",
+    "description": "Python-like syntax to easily create Regular Expressions with code",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
