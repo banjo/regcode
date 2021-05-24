@@ -1,11 +1,5 @@
-import { Escapers } from "./helpers/escapers";
-import { Methods } from "./helpers/methods";
-import { Quantifiers } from "./helpers/quantifiers";
 import { RegexDefinitions } from "./helpers/regexDefinitions";
-import { RegexHelpers } from "./helpers/regexHelpers";
 import { Splitters } from "./helpers/splitters";
-import { getValueFromDefinition } from "./services/valueService";
-import { handleMethod } from "./services/methodService";
 import { appendQuantifier, getQuantifier } from "./services/quantifierService";
 import { getDefinition, handleDefinition } from "./services/definitionService";
 import { handleOr } from "./services/statementService";
@@ -22,11 +16,11 @@ export class RegCode {
     // TODO: change methods to methods in object
     // TODO: add error handling
 
-    private result = "";
-
     convert(regex: string): string {
         return this.handleRegex(regex);
     }
+
+    private result = "";
 
     private handleRegex(regex: string): string {
         const statements = regex.split(Splitters.divider);

@@ -1,8 +1,9 @@
 {
     "name": "regcode",
     "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
+    "description": "Python like syntax to easily create Regular Expressions with code",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "dependencies": {
         "typescript": "^4.2.4"
     },
@@ -11,6 +12,7 @@
     },
     "scripts": {
         "build": "npx tsc",
+        "prepublish": "tsc",
         "watch": "npx tsc -w",
         "run": "node dist/index.js",
         "start": "npm run build && npm run run"

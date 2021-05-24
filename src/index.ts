@@ -1,10 +1,9 @@
 import { RegCode } from "./RegCode";
 
-export {}; // fix bug with result variable
+const statement = process.argv[2];
+if (statement) console.log(new RegCode().convert(statement));
 
-const regCode = new RegCode();
-let result = regCode.convert("[number][or][letter][or{4}] exact(he()lo)");
-console.log(result);
+export { RegCode };
 
 // const regexConvert = new RegCode();
 // const regexCode =
