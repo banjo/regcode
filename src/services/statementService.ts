@@ -1,7 +1,6 @@
 import { Escapers } from "../helpers/escapers";
 import { RegexHelpers } from "../helpers/regexHelpers";
 import { Splitters } from "../helpers/splitters";
-import { getMethodParameter } from "./methodService";
 
 function addEscapeToEscapers(parameters: string) {
     let result = parameters;

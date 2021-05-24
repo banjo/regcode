@@ -1,16 +1,19 @@
 import { Methods } from "../helpers/methods";
 import { RegexHelpers } from "../helpers/regexHelpers";
-import { convertDefinitionToValues } from "./valueService";
+import {
+    convertDefinitionToValues,
+    getValueFromDefinition,
+} from "./valueService";
 import { addEscapeToEscapers } from "./statementService";
 import { Splitters } from "../helpers/splitters";
 import { RegexDefinitions } from "../helpers/regexDefinitions";
 
-const PLACEHOLDER = "PLACEHOLDERFORORSTATEMENT";
+const PLACEHOLDER_FOR_OR = "PLACEHOLDERFORORSTATEMENT";
+const PLACEHOLDER_FOR_PARAMETERS = (int: number) =>
+    `PLACEHOLDERFORPARAMETER${int}END`;
 
 function handleMethod(definition: string, hasQuantifier: boolean) {
-    definition = definition.replace(Splitters.or, PLACEHOLDER);
-    definition = convertDefinitionToValues(definition);
-
+    definition = definition.replace(Splitters.or, PLACEHOLDER_FOR_OR);
     return useMethod(definition, hasQuantifier);
 }
 
@@ -24,25 +27,82 @@ function useMethod(definition: string, hasQuantifier: boolean) {
         process.exit(1);
     }
 
-    const parameter = getMethodParameter(definition);
+    let parameter = getMethodParameter(definition);
     if (parameter.length === 0) {
         console.error(`${methodName} method expects at least one argument`);
         process.exit(1);
     }
 
+    // TODO: either escape characters before transform or use placeholder
     let result;
     if (method.name === Methods.regex.name) {
         result = method(parameter);
     } else {
+        // save placerholders
+        let placeholderValues: string[];
+        ({ parameter, placeholderValues } =
+            setPlaceholdersForParameters(parameter));
+
+        // escape parameters
         let escapedParameter = addEscapeToEscapers(parameter);
+
+        // restore placeholers
+        escapedParameter = setParametersForPlaceholder(
+            escapedParameter,
+            placeholderValues
+        );
+
+        // convert to normal values
+        escapedParameter = convertDefinitionToValues(escapedParameter);
+
+        // add or part
         escapedParameter = escapedParameter.replace(
-            PLACEHOLDER,
+            PLACEHOLDER_FOR_OR,
             RegexDefinitions.or
         );
         result = method(escapedParameter);
     }
 
     return hasQuantifier ? `(${result})` : result;
+}
+
+function setPlaceholdersForParameters(parameter: string) {
+    let placeholderValues: string[] = [];
+
+    const allCurrentValues = parameter.match(
+        RegexHelpers.squareBracketsWithOptionalQuantifier
+    );
+
+    if (allCurrentValues) {
+        let index = -1;
+        for (const parameterValue of allCurrentValues) {
+            index++;
+
+            placeholderValues.push(parameterValue);
+
+            parameter = parameter.replace(
+                parameterValue,
+                PLACEHOLDER_FOR_PARAMETERS(index)
+            );
+        }
+    }
+
+    return { parameter, placeholderValues };
+}
+
+function setParametersForPlaceholder(
+    parameterWithPlaceholders: string,
+    placeholderValues: string[]
+) {
+    let result = parameterWithPlaceholders;
+    let index = -1;
+    for (const value of placeholderValues) {
+        index++;
+        let toReplace = PLACEHOLDER_FOR_PARAMETERS(index);
+        result = result.replace(toReplace, value);
+    }
+
+    return result;
 }
 
 function getMethodParameter(definition: string) {

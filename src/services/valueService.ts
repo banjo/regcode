@@ -24,11 +24,21 @@ function convertDefinitionToValues(definition: string) {
 }
 
 function getValueFromDefinition(definition: string): string | null {
-    if (definition.startsWith("[") && definition.endsWith("]")) {
-        return definition.slice(1).slice(0, -1);
+
+    const match = definition.match(RegexHelpers.allInsideSquareBrackets);
+
+    if (match === null) {
+        console.error("Could not find value in definition " + definition);
+        process.exit(1);
     }
 
-    return null;
+    return match[0];
 }
 
-export { convertDefinitionToValues, getValueFromDefinition };
+function isValue(definition: string) {
+    if (definition.startsWith("[") && definition.endsWith("]")) {
+        return true;
+    }
+}
+
+export { convertDefinitionToValues, getValueFromDefinition, isValue };

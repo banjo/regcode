@@ -1,4 +1,5 @@
 interface IMethods {
+    normal: Function;
     exact: Function;
     regex: Function;
     oneOf: Function;
@@ -9,8 +10,11 @@ interface IMethods {
 }
 
 const Methods: IMethods = {
-    exact: (parameter: string): string => {
+    normal: (parameter: string): string => {
         return parameter;
+    },
+    exact: (parameter: string): string => {
+        return `(${parameter})`;
     },
     regex: (parameter: string): string => {
         return parameter;

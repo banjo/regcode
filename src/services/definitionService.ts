@@ -1,7 +1,7 @@
 import { RegexDefinitions } from "../helpers/regexDefinitions";
 import { RegexHelpers } from "../helpers/regexHelpers";
 import { handleMethod } from "./methodService";
-import { getValueFromDefinition } from "./valueService";
+import { getValueFromDefinition, isValue } from "./valueService";
 
 function getDefinition(part: string) {
     const isValue = part.startsWith("[");
@@ -28,10 +28,15 @@ function getDefinition(part: string) {
 }
 
 function handleDefinition(definition: string, hasQuantifier: boolean) {
-    const value = getValueFromDefinition(definition);
+    if (isValue(definition)) {
+        const value = getValueFromDefinition(definition);
 
-    if (value) {
-        return RegexDefinitions[value.toLowerCase()];
+        if (value === null) {
+            console.error("no value for definition " + definition);
+            process.exit(1);
+        }
+
+        return RegexDefinitions[value!.toLowerCase()];
     }
 
     return handleMethod(definition, hasQuantifier);

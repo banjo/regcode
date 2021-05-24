@@ -3,6 +3,7 @@ export const RegexHelpers = {
     lastOccurenceOfWord: /(\bWORD\b)(?!.*\1)/gm,
     allInsideSquareBrackets: /(?<=\[)[^\][]*(?=])/gm,
     allInsideSquareBracketsIncludingBrackets: /\[(?<=\[)[^\][]*(?=])\]/gm,
+    squareBracketsWithOptionalQuantifier: /\[(?<=\[)[^\][]*(?=])\](\{.*\})?/gm,
     insideSquiglyBrackets: /(?<=\{)[^\][]*(?=})/m,
     insideSquiglyBracketsIncludingBrackets: /\{(?<=\{)[^\][]*(?=})\}/m,
     beforeSquiglyBrackets: /(?:(?!\{).)*/m,
