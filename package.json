@@ -2,20 +2,26 @@
     "name": "regcode",
     "version": "1.0.0",
     "description": "Python-like syntax to easily create Regular Expressions with code",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "main": "./dist/src/index.js",
+    "types": "./dist/src/index.d.ts",
     "dependencies": {
         "typescript": "^4.2.4"
     },
     "devDependencies": {
-        "@types/node": "^15.6.0"
+        "@types/jest": "^26.0.23",
+        "@types/node": "^15.6.0",
+        "jest": "^26.6.3",
+        "jest-junit": "^12.0.0",
+        "ts-jest": "^26.5.6"
     },
     "scripts": {
         "build": "npx tsc",
         "prepublish": "tsc",
         "watch": "npx tsc -w",
-        "run": "node dist/index.js",
-        "start": "npm run build && npm run run"
+        "run": "node dist/src/index.js",
+        "start": "npm run build && npm run run",
+        "test": "npx jest --runInBand --detectOpenHandles --colors --verbose --reporters=default",
+        "test:ci": "npx jest --ci --runInBand --silent --colors --coverage"
     },
     "keywords": [],
     "author": "",
