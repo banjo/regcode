@@ -1,4 +1,5 @@
 import { modelQuantifier, Quantifiers } from "../helpers/quantifiers";
+import { RegexHelpers } from "../helpers/regexHelpers";
 
 function getQuantifier(part: string) {
     const endsWithQualifier = part.endsWith("}");
@@ -13,6 +14,22 @@ function getQuantifier(part: string) {
 function appendQuantifier(quantifier: string | null): string {
     let result = "";
     if (quantifier) {
+        if (quantifier.includes("-")) {
+            let quantifiers = quantifier.split("-");
+
+            quantifiers.forEach((q) => {
+                const customQuantifier = Quantifiers[q];
+
+                if (customQuantifier) {
+                    result += customQuantifier;
+                } else {
+                    console.error("Could not load quantifier " + q);
+                }
+            });
+
+            return result;
+        }
+
         const customQuantifier = Quantifiers[quantifier];
 
         if (customQuantifier) {

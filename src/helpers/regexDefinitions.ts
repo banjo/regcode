@@ -9,7 +9,7 @@ interface IRegexDefinitions {
 
 export const RegexDefinitions: IRegexDefinitions = {
     number: String.raw`\d`,
-    letter: String.raw`(\p{L}\p{M}*+)`,
+    letter: String.raw`[a-zA-ZäöüßÄÖÜ]`,
     whitespace: String.raw`\s`,
     any: String.raw`.`,
     or: "|",

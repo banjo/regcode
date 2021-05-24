@@ -12,10 +12,8 @@ import { RegexHelpers } from "./helpers/regexHelpers";
 
 export class RegCode {
     // TODO: positive/negative lookbehind?
-    // TODO: add short (greedy) to quantifiers
     // TODO: add error handling
     // TODO: check if valid regex, in methods and in general
-    // TODO: add basic tests
 
     convert(regex: string): string {
         return this.handleRegex(regex);
@@ -31,9 +29,7 @@ export class RegCode {
 
         for (let statement of statements) {
             // temporarily remove [or] within functions
-            let orParameter = statement.match(
-                RegexHelpers.methodParameterWithOr
-            );
+            let orParameter = statement.match(RegexHelpers.methodParameter);
             if (orParameter) {
                 orParameter?.forEach((m) => {
                     statement = statement.replace(m, this.placeholder);
@@ -49,9 +45,10 @@ export class RegCode {
             if (usedOrStatement) this.result += "(";
 
             let index = -1;
-            let orPlaceholderIndex = 0;
+            let orPlaceholderIndex = -1;
             for (let part of parts) {
                 index++;
+                orPlaceholderIndex++;
 
                 // replace placeholder with actual value
                 if (part.includes(this.placeholder)) {

@@ -69,6 +69,14 @@ describe("values", () => {
 
         expect(result).toBe(expected);
     });
+
+    it("[number]{3} [letter]{any-shortest}", () => {
+        let code = `[number]{3} [letter]{any-shortest} [letter]{optional-shortest}`;
+        let expected = `${RegexDefinitions.number}{3}${RegexDefinitions.letter}*?${RegexDefinitions.letter}??`;
+        let result = regCode.convert(code);
+
+        expect(result).toBe(expected);
+    });
 });
 
 describe("methods", () => {

@@ -12,4 +12,5 @@ export const RegexHelpers = {
     orSplitterWithParameter: /\[or(\{.*\})\]/m,
     untilMethodStart: /[^(]*/m,
     methodParameterWithOr: /\(.*?\[or\].*?\)/gm,
+    methodParameter: /\(.*?\)/gm,
 };
