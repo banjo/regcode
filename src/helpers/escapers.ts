@@ -1,0 +1,3 @@
+const Escapers = "^$*+-?()[]{}|";
+
+export { Escapers };
