@@ -1,0 +1,21 @@
+{
+    "name": "regcode",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "typescript": "^4.2.4"
+    },
+    "devDependencies": {
+        "@types/node": "^15.6.0"
+    },
+    "scripts": {
+        "build": "npx tsc",
+        "watch": "npx tsc -w",
+        "run": "node dist/index.js",
+        "start": "npm run build && npm run run"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
