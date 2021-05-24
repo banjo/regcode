@@ -1,4 +1,4 @@
-import { Quantifiers } from "../helpers/quantifiers";
+import { modelQuantifier, Quantifiers } from "../helpers/quantifiers";
 
 function getQuantifier(part: string) {
     const endsWithQualifier = part.endsWith("}");
@@ -13,13 +13,12 @@ function getQuantifier(part: string) {
 function appendQuantifier(quantifier: string | null): string {
     let result = "";
     if (quantifier) {
-        // @ts-ignore: currently any type on return
         const customQuantifier = Quantifiers[quantifier];
 
         if (customQuantifier) {
             result += customQuantifier;
         } else {
-            result += Quantifiers.model(quantifier);
+            result += modelQuantifier(quantifier);
         }
     }
 

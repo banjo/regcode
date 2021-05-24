@@ -10,7 +10,11 @@ function convertDefinitionToValues(definition: string) {
         for (const parameterValue of allValues) {
             const value = getValueFromDefinition(parameterValue);
 
-            // @ts-ignore: currently any type on return
+            if (!value) {
+                console.error(`Invalid value in ${parameterValue}`);
+                process.exit(1);
+            }
+
             const regexExpression = RegexDefinitions[value.toLowerCase()];
             definition = definition.replace(parameterValue, regexExpression);
         }

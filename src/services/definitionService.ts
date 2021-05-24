@@ -31,7 +31,6 @@ function handleDefinition(definition: string, hasQuantifier: boolean) {
     const value = getValueFromDefinition(definition);
 
     if (value) {
-        // @ts-ignore: currently any type on return
         return RegexDefinitions[value.toLowerCase()];
     }
 
