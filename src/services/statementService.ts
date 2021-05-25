@@ -5,7 +5,7 @@ import { getQuantifier, handleQuantifier } from "./quantifierService";
 
 function addEscapeToEscapers(parameters: string) {
     let result = parameters;
-    Escapers.split("").forEach((e) => {
+    Escapers.split("").forEach(e => {
         result = result.replace(e, "\\" + e);
     });
 

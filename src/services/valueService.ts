@@ -24,7 +24,6 @@ function convertDefinitionToValues(definition: string) {
 }
 
 function getValueFromDefinition(definition: string): string | null {
-
     const match = definition.match(RegexHelpers.allInsideSquareBrackets);
 
     if (match === null) {

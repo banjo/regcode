@@ -16,7 +16,7 @@ function handleQuantifier(quantifier: string | null): string {
         if (quantifier.includes("-")) {
             let quantifiers = quantifier.split("-");
 
-            quantifiers.forEach((q) => {
+            quantifiers.forEach(q => {
                 const customQuantifier = Quantifiers[q];
 
                 if (customQuantifier) {

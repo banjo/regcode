@@ -92,7 +92,7 @@ function braceInlineOr(modifiedParameters: string) {
     );
 
     if (matches) {
-        matches.forEach((m) => {
+        matches.forEach(m => {
             modifiedParameters = modifiedParameters.replace(m, `(${m})`);
         });
     }
