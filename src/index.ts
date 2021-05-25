@@ -6,6 +6,6 @@ if (statement) console.log(new RegCode().convert(statement));
 export { RegCode };
 
 const regexConvert = new RegCode();
-const regexCode = "normal(T[or]the|)";
+const regexCode = "normal(T[or]the)[or]normal(car)";
 const result = regexConvert.convert(regexCode);
 console.log(result);

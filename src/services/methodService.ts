@@ -73,8 +73,7 @@ function handleParameters(parameter: string) {
         RegexDefinitions.or
     );
 
-    // ! Currently removed, would make normal(T[or]the) => "(T|t)he". Now is T|the.
-    // modifiedParameters = braceInlineOr(modifiedParameters);
+    modifiedParameters = braceInlineOr(modifiedParameters);
 
     // convert quantifiers
     let oldQuantifier = getQuantifier(modifiedParameters);
