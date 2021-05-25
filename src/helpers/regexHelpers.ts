@@ -18,4 +18,5 @@ export const RegexHelpers = {
     fullValueDefinitionWithQuantifier: /\[[a-zA-ZäöüßÄÖÜ]*\]({.*})?/gm,
     fullMethodWithPlaceholderOrFullValue:
         /(\[[a-zA-ZäöüßÄÖÜ]*\])({.*})?|[a-zA-ZäöüßÄÖÜ]*?PLACEHOLDERFOREARLYORSTATEMENT({.*?})?/gm,
+    inlineOrBeforeAndAfter: /[^\\]\|./gm,
 };

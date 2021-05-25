@@ -36,44 +36,69 @@ function useMethod(definition: string, hasQuantifier: boolean) {
 
     let result;
     if (method.name === Methods.regex.name) {
+        if (parameter.includes(PLACEHOLDER_FOR_OR)) {
+            console.error("Cannot include or statement in regex definition.");
+            process.exit(1);
+        }
         result = method(parameter);
     } else {
-        // save placerholders
-        let placeholderValues: string[];
-        ({ parameter, placeholderValues } =
-            setPlaceholdersForParameters(parameter));
-
-        // escape parameters
-        let escapedParameter = addEscapeToEscapers(parameter);
-
-        // restore placeholers
-        escapedParameter = setParametersForPlaceholder(
-            escapedParameter,
-            placeholderValues
-        );
-
-        // convert to normal values
-        escapedParameter = convertDefinitionToValues(escapedParameter);
-
-        // add or part
-        escapedParameter = escapedParameter.replace(
-            PLACEHOLDER_FOR_OR,
-            RegexDefinitions.or
-        );
-
-        // convert quantifiers
-        let oldQuantifier = getQuantifier(escapedParameter);
-        let newQuantifier = handleQuantifier(oldQuantifier);
-
-        escapedParameter = escapedParameter.replace(
-            `{${oldQuantifier}}`,
-            newQuantifier
-        );
-
-        result = method(escapedParameter);
+        let modifiedParameters = handleParameters(parameter);
+        result = method(modifiedParameters);
     }
 
     return hasQuantifier ? `(${result})` : result;
+}
+
+function handleParameters(parameter: string) {
+    // save placeholders
+    let placeholderValues: string[];
+    ({ parameter, placeholderValues } =
+        setPlaceholdersForParameters(parameter));
+
+    // escape parameters
+    let modifiedParameters = addEscapeToEscapers(parameter);
+
+    // restore placeholders
+    modifiedParameters = setParametersForPlaceholder(
+        modifiedParameters,
+        placeholderValues
+    );
+
+    // convert to normal values
+    modifiedParameters = convertDefinitionToValues(modifiedParameters);
+
+    // add or part
+    modifiedParameters = modifiedParameters.replace(
+        PLACEHOLDER_FOR_OR,
+        RegexDefinitions.or
+    );
+
+    // ! Currently removed, would make normal(T[or]the) => "(T|t)he". Now is T|the.
+    // modifiedParameters = braceInlineOr(modifiedParameters);
+
+    // convert quantifiers
+    let oldQuantifier = getQuantifier(modifiedParameters);
+    let newQuantifier = handleQuantifier(oldQuantifier);
+
+    modifiedParameters = modifiedParameters.replace(
+        `{${oldQuantifier}}`,
+        newQuantifier
+    );
+    return modifiedParameters;
+}
+
+function braceInlineOr(modifiedParameters: string) {
+    const matches = modifiedParameters.match(
+        RegexHelpers.inlineOrBeforeAndAfter
+    );
+
+    if (matches) {
+        matches.forEach((m) => {
+            modifiedParameters = modifiedParameters.replace(m, `(${m})`);
+        });
+    }
+
+    return modifiedParameters;
 }
 
 function setPlaceholdersForParameters(parameter: string) {
