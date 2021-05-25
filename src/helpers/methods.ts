@@ -4,8 +4,11 @@ interface IMethods {
     regex: Function;
     oneOf: Function;
     notOneOf: Function;
-    endsWith: Function;
-    startsWith: Function;
+    lastOccuranceOfWord: Function;
+    matchUpTo: Function;
+    word: Function;
+    // endsWith: Function;
+    // startsWith: Function;
     [method: string]: Function;
 }
 
@@ -25,11 +28,20 @@ const Methods: IMethods = {
     notOneOf: (parameter: string): string => {
         return `[^${parameter}]`;
     },
-    endsWith: (parameter: string): string => {
-        return `(${parameter})$`;
+    // endsWith: (parameter: string): string => {
+    //     return `(${parameter})$`;
+    // },
+    // startsWith: (parameter: string): string => {
+    //     return `^(${parameter})`;
+    // },
+    lastOccuranceOfWord: (parameter: string): string => {
+        return String.raw`(\b${parameter}\b)(?!.*\b\1\b)`;
     },
-    startsWith: (parameter: string): string => {
-        return `^(${parameter})`;
+    word: (parameter: string): string => {
+        return String.raw`\b${parameter}\b`;
+    },
+    matchUpTo: (parameter: string): string => {
+        return String.raw`^(.*?)(${parameter})`;
     },
 };
 

@@ -144,16 +144,16 @@ describe("methods", () => {
         expect(result).toBe(expected);
     });
 
-    it("normal(a[or]b[or]c)[or]startsWith([number])", () => {
-        let code = "startsWith(a[or]b[or]c)[or]startsWith([number])";
-        let expected = `(^(a${RegexDefinitions.or}b${RegexDefinitions.or}c)|^(${RegexDefinitions.number}))`;
+    it("exact(a[or]b[or]c)[or][start]exact([number])", () => {
+        let code = "exact(a[or]b[or]c)[or][start]exact([number])";
+        let expected = `((a${RegexDefinitions.or}b${RegexDefinitions.or}c)|^(${RegexDefinitions.number}))`;
         let result = regCode.convert(code);
 
         expect(result).toBe(expected);
     });
 
-    it("normal(a[or]b[or]c)[or]startsWith([number])", () => {
-        let code = "startsWith(a[or]b[or]c)[or]startsWith([number])";
+    it("[start]exact(a[or]b[or]c)[or][start]exact([number])", () => {
+        let code = "[start]exact(a[or]b[or]c)[or][start]exact([number])";
         let expected = `(^(a${RegexDefinitions.or}b${RegexDefinitions.or}c)|^(${RegexDefinitions.number}))`;
         let result = regCode.convert(code);
 
@@ -162,17 +162,17 @@ describe("methods", () => {
 });
 
 describe("statements", () => {
-    it("startsWith(a[or]b[or]c)[or]startsWith([number]) endsWith(abc)", () => {
+    it("[start]exact(a[or]b[or]c)[or][start]exact([number]) exact(abc) [end]", () => {
         let code =
-            "startsWith(a[or]b[or]c)[or]startsWith([number]) endsWith(abc)";
+            "[start]exact(a[or]b[or]c)[or][start]exact([number]) exact(abc) [end]";
         let expected = `(^(a${RegexDefinitions.or}b${RegexDefinitions.or}c)|^(${RegexDefinitions.number}))(abc)$`;
         let result = regCode.convert(code);
 
         expect(result).toBe(expected);
     });
 
-    it("[letter]{3} [number]{any} endsWith(abc)", () => {
-        let code = "[letter]{3} [number]{any-shortest} endsWith(abc)";
+    it("[letter]{3} [number]{any} exact(abc) [end]", () => {
+        let code = "[letter]{3} [number]{any-shortest} exact(abc) [end]";
         let expected = `${RegexDefinitions.letter}{3}${RegexDefinitions.number}${Quantifiers.any}${Quantifiers.shortest}(abc)$`;
         let result = regCode.convert(code);
 
@@ -180,8 +180,16 @@ describe("statements", () => {
     });
 
     it("[letter][or][number]{3}[or{any-shorter}]", () => {
-        let code = "[letter]{3} [number]{any-shortest} endsWith(abc)";
+        let code = "[letter]{3} [number]{any-shortest} exact(abc) [end]";
         let expected = `${RegexDefinitions.letter}{3}${RegexDefinitions.number}${Quantifiers.any}${Quantifiers.shortest}(abc)$`;
+        let result = regCode.convert(code);
+
+        expect(result).toBe(expected);
+    });
+
+    it("exact(abc)[or]exact(def)normal(hej)", () => {
+        let code = "exact(abc)[or]exact(def)normal(hej)";
+        let expected = `((abc)${RegexDefinitions.or}(def)hej)`;
         let result = regCode.convert(code);
 
         expect(result).toBe(expected);

@@ -28,10 +28,12 @@ export class RegCode {
         let usedOrStatement = false;
 
         for (let statement of statements) {
-            // temporarily remove [or] within functions
-            let orParameter = statement.match(RegexHelpers.methodParameter);
-            if (orParameter) {
-                orParameter?.forEach((m) => {
+            // temporarily remove all method parameters within functions
+            let allMethodParameters = statement.match(
+                RegexHelpers.methodParameter
+            );
+            if (allMethodParameters) {
+                allMethodParameters?.forEach((m) => {
                     statement = statement.replace(m, this.placeholder);
                 });
             }
@@ -39,34 +41,48 @@ export class RegCode {
             ({ statement, usedOrStatement, orQuantifier } =
                 handleOr(statement));
 
-            const parts = statement.split(Splitters.or);
+            const orParts = statement.split(Splitters.or);
 
             // set full or statement in brackets
             if (usedOrStatement) this.result += "(";
 
             let index = -1;
-            let orPlaceholderIndex = -1;
-            for (let part of parts) {
+            let orPlaceholderIndex = 0;
+            for (let part of orParts) {
                 index++;
-                orPlaceholderIndex++;
 
-                // replace placeholder with actual value
-                if (part.includes(this.placeholder)) {
-                    part = part.replace(
-                        this.placeholder,
-                        orParameter![orPlaceholderIndex]
+                // split parts
+                let allDefinitions = part.match(
+                    RegexHelpers.fullMethodWithPlaceholderOrFullValue
+                );
+
+                if (!allDefinitions) {
+                    console.error(
+                        "Could not find any definitions in part " + part
                     );
+                    process.exit(1);
                 }
 
-                const definition = getDefinition(part);
-                const quantifier = getQuantifier(part);
+                for (let partDefinition of allDefinitions) {
+                    // replace placeholder with actual value
+                    if (partDefinition.includes(this.placeholder)) {
+                        partDefinition = partDefinition.replace(
+                            this.placeholder,
+                            allMethodParameters![orPlaceholderIndex]
+                        );
+                        orPlaceholderIndex++;
+                    }
 
-                const hasQuantifier = !!quantifier;
-                this.result += handleDefinition(definition, hasQuantifier);
-                this.result += handleQuantifier(quantifier);
+                    const definition = getDefinition(partDefinition);
+                    const quantifier = getQuantifier(partDefinition);
+
+                    const hasQuantifier = !!quantifier;
+                    this.result += handleDefinition(definition, hasQuantifier);
+                    this.result += handleQuantifier(quantifier);
+                }
 
                 const shouldAddOrSymbol =
-                    usedOrStatement && index < parts.length - 1;
+                    usedOrStatement && index < orParts.length - 1;
                 if (shouldAddOrSymbol) this.result += RegexDefinitions.or;
             }
 
