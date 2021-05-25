@@ -35,7 +35,7 @@ export class RegCode {
                 RegexHelpers.methodParameter
             );
             if (allMethodParameters) {
-                allMethodParameters?.forEach((m) => {
+                allMethodParameters?.forEach(m => {
                     statement = statement.replace(m, this.placeholder);
                 });
             }
