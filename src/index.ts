@@ -6,6 +6,6 @@ if (statement) console.log(new RegCode().convert(statement));
 export { RegCode };
 
 const regexConvert = new RegCode();
-const regexCode = "startsWith(a[or]b[or]c)[or]startsWith([number])";
+const regexCode = "exact([letter]{any-shorter})";
 const result = regexConvert.convert(regexCode);
 console.log(result);

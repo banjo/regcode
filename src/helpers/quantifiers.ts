@@ -11,6 +11,8 @@ const Quantifiers: IQuantifiers = {
     any: `*`,
     optional: `?`,
     shortest: "?",
+    shorter: "?",
+    short: "?",
 };
 
 const modelQuantifier = (quantifier: string) => `{${quantifier}}`;

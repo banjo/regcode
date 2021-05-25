@@ -4,6 +4,7 @@ interface IRegexDefinitions {
     whitespace: string;
     any: string;
     or: string;
+    special: string;
     [key: string]: string;
 }
 
@@ -13,4 +14,5 @@ export const RegexDefinitions: IRegexDefinitions = {
     whitespace: String.raw`\s`,
     any: String.raw`.`,
     or: "|",
+    special: String.raw`!#$%&'*+-/=?^_\`{|}~`,
 };

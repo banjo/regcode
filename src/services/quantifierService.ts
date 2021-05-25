@@ -1,5 +1,4 @@
 import { modelQuantifier, Quantifiers } from "../helpers/quantifiers";
-import { RegexHelpers } from "../helpers/regexHelpers";
 
 function getQuantifier(part: string) {
     const endsWithQualifier = part.endsWith("}");

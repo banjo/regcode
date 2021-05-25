@@ -1,3 +1,3 @@
-const Escapers = "^$*+-?()[]{}|";
+const Escapers = ".^$*+-?()[]{}|/";
 
 export { Escapers };

@@ -7,6 +7,10 @@ import {
 import { addEscapeToEscapers } from "./statementService";
 import { Splitters } from "../helpers/splitters";
 import { RegexDefinitions } from "../helpers/regexDefinitions";
+import {
+    appendQuantifier as handleQuantifier,
+    getQuantifier,
+} from "./quantifierService";
 
 const PLACEHOLDER_FOR_OR = "PLACEHOLDERFORORSTATEMENT";
 const PLACEHOLDER_FOR_PARAMETERS = (int: number) =>
@@ -33,7 +37,6 @@ function useMethod(definition: string, hasQuantifier: boolean) {
         process.exit(1);
     }
 
-    // TODO: either escape characters before transform or use placeholder
     let result;
     if (method.name === Methods.regex.name) {
         result = method(parameter);
@@ -60,6 +63,16 @@ function useMethod(definition: string, hasQuantifier: boolean) {
             PLACEHOLDER_FOR_OR,
             RegexDefinitions.or
         );
+
+        // convert quantifiers
+        let oldQuantifier = getQuantifier(escapedParameter);
+        let newQuantifier = handleQuantifier(oldQuantifier);
+
+        escapedParameter = escapedParameter.replace(
+            `{${oldQuantifier}}`,
+            newQuantifier
+        );
+
         result = method(escapedParameter);
     }
 
