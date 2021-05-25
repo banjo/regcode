@@ -3,6 +3,8 @@ interface IQuantifiers {
     any: string;
     optional: string;
     shortest: string;
+    short: string;
+    shorter: string;
     [key: string]: string;
 }
 

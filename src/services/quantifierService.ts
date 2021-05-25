@@ -10,7 +10,7 @@ function getQuantifier(part: string) {
     return quantifier;
 }
 
-function appendQuantifier(quantifier: string | null): string {
+function handleQuantifier(quantifier: string | null): string {
     let result = "";
     if (quantifier) {
         if (quantifier.includes("-")) {
@@ -41,4 +41,4 @@ function appendQuantifier(quantifier: string | null): string {
     return result;
 }
 
-export { getQuantifier, appendQuantifier };
+export { getQuantifier, handleQuantifier };

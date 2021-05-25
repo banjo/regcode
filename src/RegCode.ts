@@ -1,6 +1,6 @@
 import { RegexDefinitions } from "./helpers/regexDefinitions";
 import { Splitters } from "./helpers/splitters";
-import { appendQuantifier, getQuantifier } from "./services/quantifierService";
+import { handleQuantifier, getQuantifier } from "./services/quantifierService";
 import { getDefinition, handleDefinition } from "./services/definitionService";
 import { handleOr } from "./services/statementService";
 import { RegexHelpers } from "./helpers/regexHelpers";
@@ -63,7 +63,7 @@ export class RegCode {
 
                 const hasQuantifier = !!quantifier;
                 this.result += handleDefinition(definition, hasQuantifier);
-                this.result += appendQuantifier(quantifier);
+                this.result += handleQuantifier(quantifier);
 
                 const shouldAddOrSymbol =
                     usedOrStatement && index < parts.length - 1;

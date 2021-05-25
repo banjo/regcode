@@ -151,4 +151,39 @@ describe("methods", () => {
 
         expect(result).toBe(expected);
     });
+
+    it("normal(a[or]b[or]c)[or]startsWith([number])", () => {
+        let code = "startsWith(a[or]b[or]c)[or]startsWith([number])";
+        let expected = `(^(a${RegexDefinitions.or}b${RegexDefinitions.or}c)|^(${RegexDefinitions.number}))`;
+        let result = regCode.convert(code);
+
+        expect(result).toBe(expected);
+    });
+});
+
+describe("statements", () => {
+    it("startsWith(a[or]b[or]c)[or]startsWith([number]) endsWith(abc)", () => {
+        let code =
+            "startsWith(a[or]b[or]c)[or]startsWith([number]) endsWith(abc)";
+        let expected = `(^(a${RegexDefinitions.or}b${RegexDefinitions.or}c)|^(${RegexDefinitions.number}))(abc)$`;
+        let result = regCode.convert(code);
+
+        expect(result).toBe(expected);
+    });
+
+    it("[letter]{3} [number]{any} endsWith(abc)", () => {
+        let code = "[letter]{3} [number]{any-shortest} endsWith(abc)";
+        let expected = `${RegexDefinitions.letter}{3}${RegexDefinitions.number}${Quantifiers.any}${Quantifiers.shortest}(abc)$`;
+        let result = regCode.convert(code);
+
+        expect(result).toBe(expected);
+    });
+
+    it("[letter][or][number]{3}[or{any-shorter}]", () => {
+        let code = "[letter]{3} [number]{any-shortest} endsWith(abc)";
+        let expected = `${RegexDefinitions.letter}{3}${RegexDefinitions.number}${Quantifiers.any}${Quantifiers.shortest}(abc)$`;
+        let result = regCode.convert(code);
+
+        expect(result).toBe(expected);
+    });
 });

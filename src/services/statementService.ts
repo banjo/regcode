@@ -1,6 +1,7 @@
 import { Escapers } from "../helpers/escapers";
 import { RegexHelpers } from "../helpers/regexHelpers";
 import { Splitters } from "../helpers/splitters";
+import { getQuantifier, handleQuantifier } from "./quantifierService";
 
 function addEscapeToEscapers(parameters: string) {
     let result = parameters;
@@ -25,7 +26,15 @@ function handleOr(statement: string) {
             RegexHelpers.insideSquiglyBracketsIncludingBrackets
         )![0];
 
-        if (quantifier) orQuantifier = quantifier;
+        let oldQuantifier = getQuantifier(quantifier);
+        let newQuantifier = handleQuantifier(oldQuantifier);
+
+        newQuantifier = newQuantifier.replace(
+            `{${oldQuantifier}}`,
+            newQuantifier
+        );
+
+        if (quantifier) orQuantifier = newQuantifier;
         statement = statement.replace(match, ""); // remove or quantifer from statement
     }
 

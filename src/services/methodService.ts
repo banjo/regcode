@@ -7,10 +7,7 @@ import {
 import { addEscapeToEscapers } from "./statementService";
 import { Splitters } from "../helpers/splitters";
 import { RegexDefinitions } from "../helpers/regexDefinitions";
-import {
-    appendQuantifier as handleQuantifier,
-    getQuantifier,
-} from "./quantifierService";
+import { handleQuantifier, getQuantifier } from "./quantifierService";
 
 const PLACEHOLDER_FOR_OR = "PLACEHOLDERFORORSTATEMENT";
 const PLACEHOLDER_FOR_PARAMETERS = (int: number) =>
