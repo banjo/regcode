@@ -4,9 +4,14 @@ interface IMethods {
     regex: Function;
     oneOf: Function;
     notOneOf: Function;
-    lastOccuranceOfWord: Function;
+    lastOccurrenceOfWord: Function;
     matchUpTo: Function;
     word: Function;
+    hasAfter: Function;
+    hasBefore: Function;
+    notAfter: Function;
+    notBefore: Function;
+
     // endsWith: Function;
     // startsWith: Function;
     [method: string]: Function;
@@ -34,7 +39,7 @@ const Methods: IMethods = {
     // startsWith: (parameter: string): string => {
     //     return `^(${parameter})`;
     // },
-    lastOccuranceOfWord: (parameter: string): string => {
+    lastOccurrenceOfWord: (parameter: string): string => {
         return String.raw`(\b${parameter}\b)(?!.*\b\1\b)`;
     },
     word: (parameter: string): string => {
@@ -42,6 +47,18 @@ const Methods: IMethods = {
     },
     matchUpTo: (parameter: string): string => {
         return String.raw`^(.*?)(${parameter})`;
+    },
+    hasAfter: (parameter: string): string => {
+        return String.raw`(?=${parameter})`;
+    },
+    hasBefore: (parameter: string): string => {
+        return String.raw`(?<=${parameter})`;
+    },
+    notAfter: (parameter: string): string => {
+        return String.raw`(?!${parameter}) `;
+    },
+    notBefore: (parameter: string): string => {
+        return String.raw`(?<!${parameter})`;
     },
 };
 

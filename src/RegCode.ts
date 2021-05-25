@@ -5,15 +5,17 @@ import { getDefinition, handleDefinition } from "./services/definitionService";
 import { handleOr } from "./services/statementService";
 import { RegexHelpers } from "./helpers/regexHelpers";
 
-// statement:         oneOf([number]){3}[or][letter]{3}
+// statement:         oneOf([number]){3}[or][allCharacters]{3}
 // definition:        [number], oneOf()
 // value:             [number]
 // method:            oneOf()
 
 export class RegCode {
-    // TODO: positive/negative lookbehind?
     // TODO: add error handling
     // TODO: check if valid regex, in methods and in general
+    // TODO: API to use in project
+    // TODO: general regex stuff
+    // TODO: flags
 
     convert(regex: string): string {
         return this.handleRegex(regex);
