@@ -41,4 +41,8 @@ function handleOr(statement: string) {
     return { statement, usedOrStatement, orQuantifier };
 }
 
-export { addEscapeToEscapers, handleOr };
+function replaceAll(toReplace: string, oldString: string, newString: string) {
+    return toReplace.split(oldString).join(newString);
+}
+
+export { addEscapeToEscapers, handleOr, replaceAll };

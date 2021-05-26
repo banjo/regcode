@@ -4,17 +4,19 @@ import {
     convertDefinitionToValues,
     getValueFromDefinition,
 } from "./valueService";
-import { addEscapeToEscapers } from "./statementService";
+import { addEscapeToEscapers, replaceAll } from "./statementService";
 import { Splitters } from "../helpers/splitters";
 import { RegexDefinitions } from "../helpers/regexDefinitions";
 import { handleQuantifier, getQuantifier } from "./quantifierService";
 
-const PLACEHOLDER_FOR_OR = "PLACEHOLDERFORORSTATEMENT";
+const PLACEHOLDER_FOR_OR = "PLACEHOLDERFOREARLYOR1STATEMENTEND";
 const PLACEHOLDER_FOR_PARAMETERS = (int: number) =>
     `PLACEHOLDERFORPARAMETER${int}END`;
+const PLACEHOLDER_FOR_LEFT_BRACKET = "PLACEHOLDERFORLEFTBRACKETEND";
+const PLACEHOLDER_FOR_RIGHT_BRACKET = "PLACEHOLDERFORRIGHTBRACKETEND";
 
 function handleMethod(definition: string, hasQuantifier: boolean) {
-    definition = definition.replace(Splitters.or, PLACEHOLDER_FOR_OR);
+    definition = replaceAll(definition, Splitters.or, PLACEHOLDER_FOR_OR);
     return useMethod(definition, hasQuantifier);
 }
 
@@ -55,8 +57,10 @@ function handleParameters(parameter: string) {
     ({ parameter, placeholderValues } =
         setPlaceholdersForParameters(parameter));
 
+    let modifiedParameters = braceInlineOr(parameter);
+
     // escape parameters
-    let modifiedParameters = addEscapeToEscapers(parameter);
+    modifiedParameters = addEscapeToEscapers(modifiedParameters);
 
     // restore placeholders
     modifiedParameters = setParametersForPlaceholder(
@@ -67,13 +71,17 @@ function handleParameters(parameter: string) {
     // convert to normal values
     modifiedParameters = convertDefinitionToValues(modifiedParameters);
 
+    // restore placeholders for or brackets
+    modifiedParameters = modifiedParameters
+        .replace(PLACEHOLDER_FOR_LEFT_BRACKET, "(")
+        .replace(PLACEHOLDER_FOR_RIGHT_BRACKET, ")");
+
     // add or part
-    modifiedParameters = modifiedParameters.replace(
+    modifiedParameters = replaceAll(
+        modifiedParameters,
         PLACEHOLDER_FOR_OR,
         RegexDefinitions.or
     );
-
-    modifiedParameters = braceInlineOr(modifiedParameters);
 
     // convert quantifiers
     let oldQuantifier = getQuantifier(modifiedParameters);
@@ -87,17 +95,86 @@ function handleParameters(parameter: string) {
 }
 
 function braceInlineOr(modifiedParameters: string) {
-    const matches = modifiedParameters.match(
-        RegexHelpers.inlineOrBeforeAndAfter
-    );
+    let matches = modifiedParameters.split(PLACEHOLDER_FOR_OR);
 
-    if (matches) {
-        matches.forEach(m => {
-            modifiedParameters = modifiedParameters.replace(m, `(${m})`);
-        });
+    let noOrStatement = matches.length === 1;
+    if (noOrStatement) {
+        return modifiedParameters;
     }
 
+    modifiedParameters = handleBeforeOr(modifiedParameters, matches);
+    modifiedParameters = handleAfterOr(modifiedParameters, matches);
+
+    // TODO: if not, do the normal way
+    // const matches = modifiedParameters.match(
+    //     RegexHelpers.inlineOrBeforeAndAfter
+    // );
+
+    // if (matches) {
+    //     matches.forEach(m => {
+    //         modifiedParameters = modifiedParameters.replace(m, `(${m})`);
+    //     });
+    // }
+
     return modifiedParameters;
+}
+
+function handleAfterOr(parameters: string, matches: string[]) {
+    let lastStatement = matches[matches.length - 1];
+    let valueDefintionAfterOr: null | string = null;
+    let valueDefinitionsLast = lastStatement.match(RegexHelpers.placeHolders);
+
+    if (valueDefinitionsLast) {
+        let firstElement = valueDefinitionsLast[0];
+
+        if (lastStatement.startsWith(firstElement)) {
+            valueDefintionAfterOr = lastStatement;
+        }
+    }
+
+    if (valueDefintionAfterOr) {
+        parameters = parameters.replace(
+            valueDefintionAfterOr,
+            `${valueDefintionAfterOr}${PLACEHOLDER_FOR_RIGHT_BRACKET}`
+        );
+    } else {
+        let firstChar = lastStatement[0];
+        let newStatement = lastStatement.replace(
+            firstChar,
+            `${firstChar}${PLACEHOLDER_FOR_RIGHT_BRACKET}`
+        );
+        parameters = parameters.replace(lastStatement, newStatement);
+    }
+
+    return parameters;
+}
+
+function handleBeforeOr(parameters: string, matches: string[]) {
+    let valueDefinitionBeforeOr: null | string = null;
+    let firstStatement = matches[0];
+    let valueDefinitions = firstStatement.match(RegexHelpers.placeHolders);
+
+    if (valueDefinitions) {
+        let lastElement = valueDefinitions[valueDefinitions.length - 1];
+        if (firstStatement.endsWith(lastElement)) {
+            valueDefinitionBeforeOr = lastElement;
+        }
+    }
+
+    if (valueDefinitionBeforeOr) {
+        parameters = parameters.replace(
+            valueDefinitionBeforeOr,
+            `${PLACEHOLDER_FOR_LEFT_BRACKET}${valueDefinitionBeforeOr}`
+        );
+    } else {
+        let lastChar = firstStatement[firstStatement.length - 1];
+        let index = firstStatement.lastIndexOf(lastChar);
+        let statementWithoutLast = firstStatement.slice(0, index);
+        let newStatement = `${statementWithoutLast}${PLACEHOLDER_FOR_LEFT_BRACKET}${lastChar}`;
+        parameters = parameters.replace(firstStatement, newStatement);
+    }
+
+    return parameters;
 }
 
 function setPlaceholdersForParameters(parameter: string) {

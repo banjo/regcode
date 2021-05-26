@@ -16,13 +16,13 @@
         "ts-jest": "^26.5.6"
     },
     "scripts": {
-        "build": "npx tsc",
+        "build": "npx tsc --project tsconfig.json",
         "prettify": "npx prettier --write .",
         "prepublish": "tsc",
         "watch": "npx tsc -w",
         "run": "node dist/src/index.js",
         "start": "npm run build && npm run run",
-        "test": "npx jest --runInBand --detectOpenHandles --colors --verbose --reporters=default",
+        "test": "npx jest --runInBand --detectOpenHandles --colors --reporters=default",
         "test:ci": "npx jest --ci --runInBand --silent --colors --coverage"
     },
     "keywords": [],

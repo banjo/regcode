@@ -4,8 +4,9 @@ import { handleQuantifier, getQuantifier } from "./services/quantifierService";
 import { getDefinition, handleDefinition } from "./services/definitionService";
 import { handleOr } from "./services/statementService";
 import { RegexHelpers } from "./helpers/regexHelpers";
+import { isValid } from "./services/regexService";
 
-// statement:         oneOf([number]){3}[or][allCharacters]{3}
+// statement:         oneOf([number]){3}[or][character]{3}
 // definition:        [number], oneOf()
 // value:             [number]
 // method:            oneOf()
@@ -16,13 +17,32 @@ export class RegCode {
     // TODO: API to use in project
     // TODO: general regex stuff
     // TODO: flags
+    // TODO: do not use [] within methods that use [] as brackets
 
-    convert(regex: string): string {
-        return this.handleRegex(regex);
+    convert(regCode: string): string {
+        let regex = this.handleRegex(regCode);
+
+        if (!isValid(regex)) {
+            console.error("Regex is not valid");
+            process.exit(1);
+        }
+
+        return regex;
+    }
+
+    match(regCode: string, toMatch: string): RegExpMatchArray | null {
+        const regex = this.convert(regCode);
+        return toMatch.match(regex);
+    }
+
+    hasMatch(regCode: string, toMatch: string): boolean {
+        const regex = this.convert(regCode);
+        const match = toMatch.match(regex);
+        return !!match;
     }
 
     private result = "";
-    private placeholder = "PLACEHOLDERFOREARLYORSTATEMENT";
+    private placeholder = "PLACEHOLDERFOREARLYOR1STATEMENTEND";
 
     private handleRegex(regex: string): string {
         const statements = regex.split(Splitters.divider);

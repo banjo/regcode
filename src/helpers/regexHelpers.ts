@@ -14,9 +14,10 @@ export const RegexHelpers = {
     methodParameterWithOr: /\(.*?\[or\].*?\)/gm,
     methodParameter: /\(.*?\)/gm,
     fullMethodWithPlaceholderWithQuantifier:
-        /[a-zA-ZäöüßÄÖÜ]*?PLACEHOLDERFOREARLYORSTATEMENT({.*?})?/gm,
+        /[a-zA-ZäöüßÄÖÜ]*?PLACEHOLDERFOREARLYOR1STATEMENTEND({.*?})?/gm,
     fullValueDefinitionWithQuantifier: /\[[a-zA-ZäöüßÄÖÜ]*\]({.*})?/gm,
     fullMethodWithPlaceholderOrFullValue:
-        /(\[[a-zA-ZäöüßÄÖÜ]*\])({.*})?|[a-zA-ZäöüßÄÖÜ]*?PLACEHOLDERFOREARLYORSTATEMENT({.*?})?/gm,
+        /(\[[a-zA-ZäöüßÄÖÜ]*\])({.*})?|[a-zA-ZäöüßÄÖÜ]*?PLACEHOLDERFOREARLYOR1STATEMENTEND({.*?})?/gm,
     inlineOrBeforeAndAfter: /[^\\]\|./gm,
+    placeHolders: /PLACEHOLDERFOR(PARAMETER)*?\d+END/gm,
 };
