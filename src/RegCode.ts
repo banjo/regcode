@@ -18,7 +18,7 @@ export class RegCode {
 
     convert(regCode: string): string | null {
         this.result = "";
-        let regex = this.handleRegex(regCode);
+        const regex = this.handleRegex(regCode);
         if (!regex) return null;
 
         if (!isValid(regex)) {
@@ -55,7 +55,7 @@ export class RegCode {
 
         for (let statement of statements) {
             // temporarily remove all method parameters within functions
-            let allMethodParameters = statement.match(
+            const allMethodParameters = statement.match(
                 RegexHelpers.methodParameter
             );
             if (allMethodParameters) {
@@ -67,7 +67,7 @@ export class RegCode {
             // ({ statement, usedOrStatement, orQuantifier } =
             //     handleOr(statement));
 
-            let orHandleResponse = handleOr(statement);
+            const orHandleResponse = handleOr(statement);
             if (!orHandleResponse) return null;
             ({ statement, usedOrStatement, orQuantifier } = orHandleResponse);
 
@@ -78,11 +78,11 @@ export class RegCode {
 
             let index = -1;
             let orPlaceholderIndex = 0;
-            for (let part of orParts) {
+            for (const part of orParts) {
                 index++;
 
                 // split parts
-                let allDefinitions = part.match(
+                const allDefinitions = part.match(
                     RegexHelpers.fullMethodWithPlaceholderOrFullValue
                 );
 
@@ -107,7 +107,7 @@ export class RegCode {
                     const quantifier = getQuantifier(partDefinition);
 
                     const hasQuantifier = !!quantifier;
-                    let newDefinition = handleDefinition(
+                    const newDefinition = handleDefinition(
                         definition,
                         hasQuantifier
                     );
@@ -128,7 +128,6 @@ export class RegCode {
             if (orQuantifier) this.result += orQuantifier;
         }
 
-        let finalResult = this.result;
-        return finalResult;
+        return this.result;
     }
 }

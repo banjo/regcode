@@ -6,7 +6,7 @@ function getQuantifier(part: string) {
 
     if (!endsWithQualifier) return null;
 
-    let quantifier = part.split("{").pop()!.slice(0, -1);
+    const quantifier = part.split("{").pop()!.slice(0, -1);
 
     return quantifier;
 }
@@ -15,9 +15,9 @@ function getInlineQuantifiers(part: string) {
     const matches = part.match(RegexHelpers.quantifier);
     if (!matches) return null;
 
-    let quantifiers: string[] = [];
+    const quantifiers: string[] = [];
     matches.forEach(m => {
-        let quantifier = m.slice(0, -1).slice(1);
+        const quantifier = m.slice(0, -1).slice(1);
         quantifiers.push(quantifier);
     });
 
@@ -28,7 +28,7 @@ function handleQuantifier(quantifier: string | null): string | null {
     let result = "";
     if (quantifier) {
         if (quantifier.includes("-")) {
-            let quantifiers = quantifier.split("-");
+            const quantifiers = quantifier.split("-");
 
             for (const q of quantifiers) {
                 const customQuantifier = Quantifiers[q];

@@ -17,7 +17,7 @@ function getDefinition(part: string) {
     // handle method
     let method: string;
     if (endsWithQualifier) {
-        let splitArray = part.split("{");
+        const splitArray = part.split("{");
         splitArray.pop(); // remove quantifier
         method = splitArray.join("{");
     } else {

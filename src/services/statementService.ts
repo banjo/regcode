@@ -13,20 +13,20 @@ function addEscapeToEscapers(parameters: string) {
 }
 
 function handleOr(statement: string) {
-    let usedOrStatement = statement.includes(Splitters.or);
+    const usedOrStatement = statement.includes(Splitters.or);
     let orQuantifier = null;
 
-    let orQuantifierMatch = statement.match(
+    const orQuantifierMatch = statement.match(
         RegexHelpers.orSplitterWithParameter
     );
 
     if (orQuantifierMatch && usedOrStatement) {
-        let match = orQuantifierMatch[0];
-        let quantifier = match.match(
+        const match = orQuantifierMatch[0];
+        const quantifier = match.match(
             RegexHelpers.insideSquiglyBracketsIncludingBrackets
         )![0];
 
-        let oldQuantifier = getQuantifier(quantifier);
+        const oldQuantifier = getQuantifier(quantifier);
         let newQuantifier = handleQuantifier(oldQuantifier);
         if (!newQuantifier) return null;
 

@@ -10,7 +10,7 @@ function convertDefinitionToValues(definition: string): string | null {
         for (const parameterValue of allValues) {
             let parameterIsValueDefinition = false;
             Object.keys(RegexDefinitions).forEach(key => {
-                let keyAsDefinition = `[${key}]`;
+                const keyAsDefinition = `[${key}]`;
                 if (keyAsDefinition === parameterValue) {
                     parameterIsValueDefinition = true;
                 }

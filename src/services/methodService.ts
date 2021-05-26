@@ -27,7 +27,7 @@ function useMethod(definition: string, hasQuantifier: boolean): string | null {
         return null;
     }
 
-    let parameter = getMethodParameter(definition);
+    const parameter = getMethodParameter(definition);
 
     if (!parameter) return null;
     if (parameter.length === 0) return null;
@@ -61,7 +61,7 @@ function useMethod(definition: string, hasQuantifier: boolean): string | null {
         if (!modifiedParameters) return null;
 
         // remove [] from character definition
-        let charactersWithoutBrackets = RegexDefinitions.character
+        const charactersWithoutBrackets = RegexDefinitions.character
             .slice(1)
             .slice(0, -1);
 
@@ -75,7 +75,7 @@ function useMethod(definition: string, hasQuantifier: boolean): string | null {
 
         result = method(modifiedParameters);
     } else {
-        let modifiedParameters = handleParameters(parameter);
+        const modifiedParameters = handleParameters(parameter);
         if (!modifiedParameters) return null;
 
         result = method(modifiedParameters);
@@ -102,7 +102,7 @@ function handleParameters(parameter: string): string | null {
     );
 
     // convert to normal values
-    let parametersWithValues = convertDefinitionToValues(modifiedParameters);
+    const parametersWithValues = convertDefinitionToValues(modifiedParameters);
     if (!parametersWithValues) return null;
     modifiedParameters = parametersWithValues;
 
@@ -119,11 +119,11 @@ function handleParameters(parameter: string): string | null {
     );
 
     // convert quantifiers
-    let oldQuantifiers = getInlineQuantifiers(modifiedParameters);
+    const oldQuantifiers = getInlineQuantifiers(modifiedParameters);
 
     if (oldQuantifiers) {
         oldQuantifiers.forEach(q => {
-            let newQuantifier = handleQuantifier(q);
+            const newQuantifier = handleQuantifier(q);
             if (!newQuantifier) return null;
 
             modifiedParameters = modifiedParameters.replace(
@@ -137,9 +137,9 @@ function handleParameters(parameter: string): string | null {
 }
 
 function braceInlineOr(modifiedParameters: string) {
-    let matches = modifiedParameters.split(Placeholders.mainOr);
+    const matches = modifiedParameters.split(Placeholders.mainOr);
 
-    let noOrStatement = matches.length === 1;
+    const noOrStatement = matches.length === 1;
     if (noOrStatement) {
         return modifiedParameters;
     }
@@ -151,12 +151,12 @@ function braceInlineOr(modifiedParameters: string) {
 }
 
 function handleAfterOr(parameters: string, matches: string[]) {
-    let lastStatement = matches[matches.length - 1];
+    const lastStatement = matches[matches.length - 1];
     let valueDefintionAfterOr: null | string = null;
-    let valueDefinitionsLast = lastStatement.match(RegexHelpers.placeHolders);
+    const valueDefinitionsLast = lastStatement.match(RegexHelpers.placeHolders);
 
     if (valueDefinitionsLast) {
-        let firstElement = valueDefinitionsLast[0];
+        const firstElement = valueDefinitionsLast[0];
 
         if (lastStatement.startsWith(firstElement)) {
             valueDefintionAfterOr = lastStatement;
@@ -169,8 +169,8 @@ function handleAfterOr(parameters: string, matches: string[]) {
             `${valueDefintionAfterOr}${Placeholders.rightBracket}`
         );
     } else {
-        let firstChar = lastStatement[0];
-        let newStatement = lastStatement.replace(
+        const firstChar = lastStatement[0];
+        const newStatement = lastStatement.replace(
             firstChar,
             `${firstChar}${Placeholders.rightBracket}`
         );
@@ -182,11 +182,11 @@ function handleAfterOr(parameters: string, matches: string[]) {
 
 function handleBeforeOr(parameters: string, matches: string[]) {
     let valueDefinitionBeforeOr: null | string = null;
-    let firstStatement = matches[0];
-    let valueDefinitions = firstStatement.match(RegexHelpers.placeHolders);
+    const firstStatement = matches[0];
+    const valueDefinitions = firstStatement.match(RegexHelpers.placeHolders);
 
     if (valueDefinitions) {
-        let lastElement = valueDefinitions[valueDefinitions.length - 1];
+        const lastElement = valueDefinitions[valueDefinitions.length - 1];
         if (firstStatement.endsWith(lastElement)) {
             valueDefinitionBeforeOr = lastElement;
         }
@@ -198,10 +198,10 @@ function handleBeforeOr(parameters: string, matches: string[]) {
             `${Placeholders.leftBracket}${valueDefinitionBeforeOr}`
         );
     } else {
-        let lastChar = firstStatement[firstStatement.length - 1];
-        let index = firstStatement.lastIndexOf(lastChar);
-        let statementWithoutLast = firstStatement.slice(0, index);
-        let newStatement = `${statementWithoutLast}${Placeholders.leftBracket}${lastChar}`;
+        const lastChar = firstStatement[firstStatement.length - 1];
+        const index = firstStatement.lastIndexOf(lastChar);
+        const statementWithoutLast = firstStatement.slice(0, index);
+        const newStatement = `${statementWithoutLast}${Placeholders.leftBracket}${lastChar}`;
         parameters = parameters.replace(firstStatement, newStatement);
     }
 
@@ -209,7 +209,7 @@ function handleBeforeOr(parameters: string, matches: string[]) {
 }
 
 function setPlaceholdersForParameters(parameter: string) {
-    let placeholderValues: string[] = [];
+    const placeholderValues: string[] = [];
 
     let parameters: RegExpMatchArray = [];
 
@@ -248,7 +248,7 @@ function setParametersForPlaceholder(
     let index = -1;
     for (const value of placeholderValues) {
         index++;
-        let toReplace = Placeholders.parameter(index);
+        const toReplace = Placeholders.parameter(index);
         result = result.replace(toReplace, value);
     }
 
@@ -256,7 +256,7 @@ function setParametersForPlaceholder(
 }
 
 function getMethodParameter(definition: string): string | null {
-    let methodName = getMethodName(definition);
+    const methodName = getMethodName(definition);
 
     if (!methodName) {
         console.error(
