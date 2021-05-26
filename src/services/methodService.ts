@@ -9,15 +9,10 @@ import { Splitters } from "../helpers/splitters";
 import { RegexDefinitions } from "../helpers/regexDefinitions";
 import { handleQuantifier, getQuantifier } from "./quantifierService";
 import { IllegalCombinations } from "../helpers/illegalCombinations";
-
-const PLACEHOLDER_FOR_OR = "PLACEHOLDERFOREARLYOR1STATEMENTEND";
-const PLACEHOLDER_FOR_PARAMETERS = (int: number) =>
-    `PLACEHOLDERFORPARAMETER${int}END`;
-const PLACEHOLDER_FOR_LEFT_BRACKET = "PLACEHOLDERFORLEFTBRACKETEND";
-const PLACEHOLDER_FOR_RIGHT_BRACKET = "PLACEHOLDERFORRIGHTBRACKETEND";
+import { Placeholders } from "../helpers/placeholders";
 
 function handleMethod(definition: string, hasQuantifier: boolean) {
-    definition = replaceAll(definition, Splitters.or, PLACEHOLDER_FOR_OR);
+    definition = replaceAll(definition, Splitters.or, Placeholders.mainOr);
     return useMethod(definition, hasQuantifier);
 }
 
@@ -53,7 +48,7 @@ function useMethod(definition: string, hasQuantifier: boolean) {
 
     let result;
     if (method.name === Methods.regex.name) {
-        if (parameter.includes(PLACEHOLDER_FOR_OR)) {
+        if (parameter.includes(Placeholders.mainOr)) {
             console.error("Cannot include or statement in regex definition.");
             process.exit(1);
         }
@@ -108,13 +103,13 @@ function handleParameters(parameter: string) {
 
     // restore placeholders for or brackets
     modifiedParameters = modifiedParameters
-        .replace(PLACEHOLDER_FOR_LEFT_BRACKET, "(")
-        .replace(PLACEHOLDER_FOR_RIGHT_BRACKET, ")");
+        .replace(Placeholders.leftBracket, "(")
+        .replace(Placeholders.rightBracket, ")");
 
     // add or part
     modifiedParameters = replaceAll(
         modifiedParameters,
-        PLACEHOLDER_FOR_OR,
+        Placeholders.mainOr,
         RegexDefinitions.or
     );
 
@@ -130,7 +125,7 @@ function handleParameters(parameter: string) {
 }
 
 function braceInlineOr(modifiedParameters: string) {
-    let matches = modifiedParameters.split(PLACEHOLDER_FOR_OR);
+    let matches = modifiedParameters.split(Placeholders.mainOr);
 
     let noOrStatement = matches.length === 1;
     if (noOrStatement) {
@@ -139,17 +134,6 @@ function braceInlineOr(modifiedParameters: string) {
 
     modifiedParameters = handleBeforeOr(modifiedParameters, matches);
     modifiedParameters = handleAfterOr(modifiedParameters, matches);
-
-    // TODO: if not, do the normal way
-    // const matches = modifiedParameters.match(
-    //     RegexHelpers.inlineOrBeforeAndAfter
-    // );
-
-    // if (matches) {
-    //     matches.forEach(m => {
-    //         modifiedParameters = modifiedParameters.replace(m, `(${m})`);
-    //     });
-    // }
 
     return modifiedParameters;
 }
@@ -170,13 +154,13 @@ function handleAfterOr(parameters: string, matches: string[]) {
     if (valueDefintionAfterOr) {
         parameters = parameters.replace(
             valueDefintionAfterOr,
-            `${valueDefintionAfterOr}${PLACEHOLDER_FOR_RIGHT_BRACKET}`
+            `${valueDefintionAfterOr}${Placeholders.rightBracket}`
         );
     } else {
         let firstChar = lastStatement[0];
         let newStatement = lastStatement.replace(
             firstChar,
-            `${firstChar}${PLACEHOLDER_FOR_RIGHT_BRACKET}`
+            `${firstChar}${Placeholders.rightBracket}`
         );
         parameters = parameters.replace(lastStatement, newStatement);
     }
@@ -199,13 +183,13 @@ function handleBeforeOr(parameters: string, matches: string[]) {
     if (valueDefinitionBeforeOr) {
         parameters = parameters.replace(
             valueDefinitionBeforeOr,
-            `${PLACEHOLDER_FOR_LEFT_BRACKET}${valueDefinitionBeforeOr}`
+            `${Placeholders.leftBracket}${valueDefinitionBeforeOr}`
         );
     } else {
         let lastChar = firstStatement[firstStatement.length - 1];
         let index = firstStatement.lastIndexOf(lastChar);
         let statementWithoutLast = firstStatement.slice(0, index);
-        let newStatement = `${statementWithoutLast}${PLACEHOLDER_FOR_LEFT_BRACKET}${lastChar}`;
+        let newStatement = `${statementWithoutLast}${Placeholders.leftBracket}${lastChar}`;
         parameters = parameters.replace(firstStatement, newStatement);
     }
 
@@ -228,7 +212,7 @@ function setPlaceholdersForParameters(parameter: string) {
 
             parameter = parameter.replace(
                 parameterValue,
-                PLACEHOLDER_FOR_PARAMETERS(index)
+                Placeholders.parameter(index)
             );
         }
     }
@@ -244,7 +228,7 @@ function setParametersForPlaceholder(
     let index = -1;
     for (const value of placeholderValues) {
         index++;
-        let toReplace = PLACEHOLDER_FOR_PARAMETERS(index);
+        let toReplace = Placeholders.parameter(index);
         result = result.replace(toReplace, value);
     }
 

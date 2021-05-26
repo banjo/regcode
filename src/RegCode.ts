@@ -5,6 +5,7 @@ import { getDefinition, handleDefinition } from "./services/definitionService";
 import { handleOr } from "./services/statementService";
 import { RegexHelpers } from "./helpers/regexHelpers";
 import { isValid } from "./services/regexService";
+import { Placeholders } from "./helpers/placeholders";
 
 // statement:         oneOf([number]){3}[or][character]{3}
 // definition:        [number], oneOf()
@@ -18,7 +19,6 @@ export class RegCode {
     // TODO: general regex stuff
     // TODO: flags
     // TODO: be able to send in { into method?
-    // TODO: placeholders into own helper
 
     convert(regCode: string): string {
         let regex = this.handleRegex(regCode);
@@ -43,7 +43,6 @@ export class RegCode {
     }
 
     private result = "";
-    private placeholder = "PLACEHOLDERFOREARLYOR1STATEMENTEND";
 
     private handleRegex(regex: string): string {
         const statements = regex.split(Splitters.divider);
@@ -57,7 +56,7 @@ export class RegCode {
             );
             if (allMethodParameters) {
                 allMethodParameters?.forEach(m => {
-                    statement = statement.replace(m, this.placeholder);
+                    statement = statement.replace(m, Placeholders.mainOr);
                 });
             }
 
@@ -88,9 +87,9 @@ export class RegCode {
 
                 for (let partDefinition of allDefinitions) {
                     // replace placeholder with actual value
-                    if (partDefinition.includes(this.placeholder)) {
+                    if (partDefinition.includes(Placeholders.mainOr)) {
                         partDefinition = partDefinition.replace(
-                            this.placeholder,
+                            Placeholders.mainOr,
                             allMethodParameters![orPlaceholderIndex]
                         );
                         orPlaceholderIndex++;
