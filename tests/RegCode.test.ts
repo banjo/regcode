@@ -11,7 +11,8 @@ describe("values", () => {
         let expected = `${RegexDefinitions.number}`;
         let result = regCode.convert(code);
 
-        // expect(isValid(result)).toBe(true);
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -20,6 +21,8 @@ describe("values", () => {
         let expected = `(${RegexDefinitions.number}${RegexDefinitions.or}${RegexDefinitions.character})`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -31,6 +34,8 @@ describe("values", () => {
         })${modelQuantifier(quantifier.toString())}`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -42,6 +47,8 @@ describe("values", () => {
         )}${RegexDefinitions.or}${RegexDefinitions.character})`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -53,6 +60,8 @@ describe("values", () => {
         )}${RegexDefinitions.or}${RegexDefinitions.character})`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -61,6 +70,8 @@ describe("values", () => {
         let expected = `(${RegexDefinitions.whitespace}${Quantifiers.oneOrMore}${RegexDefinitions.or}${RegexDefinitions.character}${Quantifiers.any})`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -69,6 +80,8 @@ describe("values", () => {
         let expected = `(${RegexDefinitions.whitespace}${Quantifiers.oneOrMore}${RegexDefinitions.or}${RegexDefinitions.character}${Quantifiers.any}${RegexDefinitions.or}${RegexDefinitions.character}${Quantifiers.optional})`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -77,6 +90,8 @@ describe("values", () => {
         let expected = `${RegexDefinitions.number}{3}${RegexDefinitions.character}*?${RegexDefinitions.character}??`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 });
@@ -87,6 +102,8 @@ describe("methods", () => {
         let expected = String.raw`\(`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -95,6 +112,8 @@ describe("methods", () => {
         let expected = String.raw`\(dad`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -103,6 +122,8 @@ describe("methods", () => {
         let expected = "(abc)";
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -111,6 +132,8 @@ describe("methods", () => {
         let expected = `(${RegexDefinitions.character})`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -119,6 +142,8 @@ describe("methods", () => {
         let expected = `(${RegexDefinitions.character}{3})`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -127,6 +152,8 @@ describe("methods", () => {
         let expected = `((${RegexDefinitions.character}{3}${RegexDefinitions.or}${RegexDefinitions.number}))`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -135,6 +162,8 @@ describe("methods", () => {
         let expected = `[(a${RegexDefinitions.or}b${RegexDefinitions.or}c)]`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -143,6 +172,8 @@ describe("methods", () => {
         let expected = `(a${RegexDefinitions.or}b${RegexDefinitions.or}c)`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -151,6 +182,8 @@ describe("methods", () => {
         let expected = `(((a${RegexDefinitions.or}b${RegexDefinitions.or}c))|^(${RegexDefinitions.number}))`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -159,6 +192,8 @@ describe("methods", () => {
         let expected = `(^((a${RegexDefinitions.or}b${RegexDefinitions.or}c))|^(${RegexDefinitions.number}))`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 });
@@ -170,6 +205,8 @@ describe("statements", () => {
         let expected = `(^((a${RegexDefinitions.or}b${RegexDefinitions.or}c))|^(${RegexDefinitions.number}))(abc)$`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -178,6 +215,8 @@ describe("statements", () => {
         let expected = `${RegexDefinitions.character}{3}${RegexDefinitions.number}${Quantifiers.any}${Quantifiers.shortest}(abc)$`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -186,6 +225,8 @@ describe("statements", () => {
         let expected = `${RegexDefinitions.character}{3}${RegexDefinitions.number}${Quantifiers.any}${Quantifiers.shortest}(abc)$`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 
@@ -194,6 +235,8 @@ describe("statements", () => {
         let expected = `((abc)${RegexDefinitions.or}(def)hej)`;
         let result = regCode.convert(code);
 
+        expect(result).not.toBeNull();
+        expect(isValid(result!)).toBe(true);
         expect(result).toBe(expected);
     });
 });
