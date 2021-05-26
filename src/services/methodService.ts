@@ -8,6 +8,7 @@ import { addEscapeToEscapers, replaceAll } from "./statementService";
 import { Splitters } from "../helpers/splitters";
 import { RegexDefinitions } from "../helpers/regexDefinitions";
 import { handleQuantifier, getQuantifier } from "./quantifierService";
+import { IllegalCombinations } from "../helpers/illegalCombinations";
 
 const PLACEHOLDER_FOR_OR = "PLACEHOLDERFOREARLYOR1STATEMENTEND";
 const PLACEHOLDER_FOR_PARAMETERS = (int: number) =>
@@ -36,6 +37,20 @@ function useMethod(definition: string, hasQuantifier: boolean) {
         process.exit(1);
     }
 
+    // handle combination that does not work
+    IllegalCombinations.forEach(combination => {
+        if (
+            method.name === combination.method &&
+            parameter.includes(combination.valueDefinition)
+        ) {
+            console.error(
+                `Illegal combination: cannot combine method ${method.name} and definition ${combination.valueDefinition}`
+            );
+
+            process.exit(1);
+        }
+    });
+
     let result;
     if (method.name === Methods.regex.name) {
         if (parameter.includes(PLACEHOLDER_FOR_OR)) {
@@ -43,6 +58,26 @@ function useMethod(definition: string, hasQuantifier: boolean) {
             process.exit(1);
         }
         result = method(parameter);
+    } else if (
+        method.name === Methods.oneOf.name ||
+        method.name === Methods.notOneOf.name
+    ) {
+        let modifiedParameters = handleParameters(parameter);
+
+        // remove [] from character definition
+        let charactersWithoutBrackets = RegexDefinitions.character
+            .slice(1)
+            .slice(0, -1);
+
+        if (modifiedParameters.includes(RegexDefinitions.character)) {
+            modifiedParameters = replaceAll(
+                modifiedParameters,
+                RegexDefinitions.character,
+                charactersWithoutBrackets
+            );
+        }
+
+        result = method(modifiedParameters);
     } else {
         let modifiedParameters = handleParameters(parameter);
         result = method(modifiedParameters);

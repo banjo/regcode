@@ -197,3 +197,14 @@ describe("statements", () => {
         expect(result).toBe(expected);
     });
 });
+
+describe("illegal combinations", () => {
+    it("oneOf() and [notCharacter]", () => {
+        const mockExit = jest.spyOn(process, "exit").mockImplementation(() => {
+            return undefined as never;
+        });
+
+        regCode.convert("oneOf([notCharacter])");
+        expect(mockExit).toHaveBeenCalledWith(1);
+    });
+});

@@ -17,7 +17,8 @@ export class RegCode {
     // TODO: API to use in project
     // TODO: general regex stuff
     // TODO: flags
-    // TODO: do not use [] within methods that use [] as brackets
+    // TODO: be able to send in { into method?
+    // TODO: placeholders into own helper
 
     convert(regCode: string): string {
         let regex = this.handleRegex(regCode);
