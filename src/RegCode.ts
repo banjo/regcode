@@ -17,6 +17,7 @@ export class RegCode {
     // TODO: return null instead of error
 
     convert(regCode: string): string | null {
+        this.result = "";
         let regex = this.handleRegex(regCode);
         if (!regex) return null;
 
@@ -128,7 +129,6 @@ export class RegCode {
         }
 
         let finalResult = this.result;
-        this.result = "";
         return finalResult;
     }
 }
