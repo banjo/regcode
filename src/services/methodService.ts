@@ -16,24 +16,24 @@ function handleMethod(definition: string, hasQuantifier: boolean) {
     return useMethod(definition, hasQuantifier);
 }
 
-function useMethod(definition: string, hasQuantifier: boolean) {
+function useMethod(definition: string, hasQuantifier: boolean): string | null {
     const methodName = getMethodName(definition);
+    if (!methodName) return null;
 
     const method = Methods[methodName];
 
     if (!method) {
         console.error(`Method ${definition} does not exist`);
-        process.exit(1);
+        return null;
     }
 
     let parameter = getMethodParameter(definition);
-    if (parameter.length === 0) {
-        console.error(`${methodName} method expects at least one argument`);
-        process.exit(1);
-    }
+
+    if (!parameter) return null;
+    if (parameter.length === 0) return null;
 
     // handle combination that does not work
-    IllegalCombinations.forEach(combination => {
+    for (const combination of IllegalCombinations) {
         if (
             method.name === combination.method &&
             parameter.includes(combination.valueDefinition)
@@ -42,15 +42,15 @@ function useMethod(definition: string, hasQuantifier: boolean) {
                 `Illegal combination: cannot combine method ${method.name} and definition ${combination.valueDefinition}`
             );
 
-            process.exit(1);
+            return null;
         }
-    });
+    }
 
     let result;
     if (method.name === Methods.regex.name) {
         if (parameter.includes(Placeholders.mainOr)) {
             console.error("Cannot include or statement in regex definition.");
-            process.exit(1);
+            return null;
         }
         result = method(parameter);
     } else if (
@@ -58,6 +58,7 @@ function useMethod(definition: string, hasQuantifier: boolean) {
         method.name === Methods.notOneOf.name
     ) {
         let modifiedParameters = handleParameters(parameter);
+        if (!modifiedParameters) return null;
 
         // remove [] from character definition
         let charactersWithoutBrackets = RegexDefinitions.character
@@ -75,13 +76,15 @@ function useMethod(definition: string, hasQuantifier: boolean) {
         result = method(modifiedParameters);
     } else {
         let modifiedParameters = handleParameters(parameter);
+        if (!modifiedParameters) return null;
+
         result = method(modifiedParameters);
     }
 
     return hasQuantifier ? `(${result})` : result;
 }
 
-function handleParameters(parameter: string) {
+function handleParameters(parameter: string): string | null {
     // save placeholders
     let placeholderValues: string[];
     ({ parameter, placeholderValues } =
@@ -99,7 +102,9 @@ function handleParameters(parameter: string) {
     );
 
     // convert to normal values
-    modifiedParameters = convertDefinitionToValues(modifiedParameters);
+    let parametersWithValues = convertDefinitionToValues(modifiedParameters);
+    if (!parametersWithValues) return null;
+    modifiedParameters = parametersWithValues;
 
     // restore placeholders for or brackets
     modifiedParameters = modifiedParameters
@@ -119,6 +124,7 @@ function handleParameters(parameter: string) {
     if (oldQuantifiers) {
         oldQuantifiers.forEach(q => {
             let newQuantifier = handleQuantifier(q);
+            if (!newQuantifier) return null;
 
             modifiedParameters = modifiedParameters.replace(
                 `{${q}}`,
@@ -249,14 +255,14 @@ function setParametersForPlaceholder(
     return result;
 }
 
-function getMethodParameter(definition: string) {
+function getMethodParameter(definition: string): string | null {
     let methodName = getMethodName(definition);
 
     if (!methodName) {
         console.error(
             `Method parameter cannot be found for definition: ${definition}`
         );
-        process.exit(1);
+        return null;
     }
 
     return definition.replace(methodName, "").slice(0, -1).slice(1);
@@ -268,7 +274,7 @@ function getMethodName(definition: string) {
         console.error(
             `Could not get method name from definition ${definition}`
         );
-        process.exit(1);
+        return null;
     }
 
     return match[0];

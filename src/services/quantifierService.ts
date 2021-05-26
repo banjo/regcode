@@ -8,8 +8,6 @@ function getQuantifier(part: string) {
 
     let quantifier = part.split("{").pop()!.slice(0, -1);
 
-    console.log(" ", quantifier);
-
     return quantifier;
 }
 
@@ -26,21 +24,22 @@ function getInlineQuantifiers(part: string) {
     return quantifiers;
 }
 
-function handleQuantifier(quantifier: string | null): string {
+function handleQuantifier(quantifier: string | null): string | null {
     let result = "";
     if (quantifier) {
         if (quantifier.includes("-")) {
             let quantifiers = quantifier.split("-");
 
-            quantifiers.forEach(q => {
+            for (const q of quantifiers) {
                 const customQuantifier = Quantifiers[q];
 
                 if (customQuantifier) {
                     result += customQuantifier;
                 } else {
                     console.error("Could not load quantifier " + q);
+                    return null;
                 }
-            });
+            }
 
             return result;
         }

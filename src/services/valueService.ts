@@ -1,7 +1,7 @@
 import { RegexDefinitions } from "../helpers/regexDefinitions";
 import { RegexHelpers } from "../helpers/regexHelpers";
 
-function convertDefinitionToValues(definition: string) {
+function convertDefinitionToValues(definition: string): string | null {
     const allValues = definition.match(
         RegexHelpers.allInsideSquareBracketsIncludingBrackets
     );
@@ -21,11 +21,7 @@ function convertDefinitionToValues(definition: string) {
             }
 
             const value = getValueFromDefinition(parameterValue);
-
-            if (!value) {
-                console.error(`Invalid value in ${parameterValue}`);
-                process.exit(1);
-            }
+            if (!value) return null;
 
             const regexExpression = RegexDefinitions[value.toLowerCase()];
             definition = definition.replace(parameterValue, regexExpression);
@@ -40,7 +36,7 @@ function getValueFromDefinition(definition: string): string | null {
 
     if (match === null) {
         console.error("Could not find value in definition " + definition);
-        process.exit(1);
+        return null;
     }
 
     return match[0];

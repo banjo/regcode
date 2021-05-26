@@ -200,11 +200,9 @@ describe("statements", () => {
 
 describe("illegal combinations", () => {
     it("oneOf() and [notCharacter]", () => {
-        const mockExit = jest.spyOn(process, "exit").mockImplementation(() => {
-            return undefined as never;
-        });
-
-        regCode.convert("oneOf([notCharacter])");
-        expect(mockExit).toHaveBeenCalledWith(1);
+        console.error = jest.fn();
+        let result = regCode.convert("oneOf([notCharacter])");
+        expect(console.error).toHaveBeenCalled();
+        expect(result).toBeNull();
     });
 });

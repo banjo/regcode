@@ -14,13 +14,15 @@ import { Placeholders } from "./helpers/placeholders";
 
 export class RegCode {
     // TODO: flags
+    // TODO: return null instead of error
 
-    convert(regCode: string): string {
+    convert(regCode: string): string | null {
         let regex = this.handleRegex(regCode);
+        if (!regex) return null;
 
         if (!isValid(regex)) {
             console.error("Regex is not valid");
-            process.exit(1);
+            return null;
         }
 
         return regex;
@@ -28,18 +30,24 @@ export class RegCode {
 
     match(regCode: string, toMatch: string): RegExpMatchArray | null {
         const regex = this.convert(regCode);
+
+        if (!regex) return null;
+
         return toMatch.match(regex);
     }
 
     hasMatch(regCode: string, toMatch: string): boolean {
         const regex = this.convert(regCode);
+
+        if (!regex) return false;
+
         const match = toMatch.match(regex);
         return !!match;
     }
 
     private result = "";
 
-    private handleRegex(regex: string): string {
+    private handleRegex(regex: string): string | null {
         const statements = regex.split(Splitters.divider);
         let orQuantifier = null;
         let usedOrStatement = false;
@@ -55,8 +63,12 @@ export class RegCode {
                 });
             }
 
-            ({ statement, usedOrStatement, orQuantifier } =
-                handleOr(statement));
+            // ({ statement, usedOrStatement, orQuantifier } =
+            //     handleOr(statement));
+
+            let orHandleResponse = handleOr(statement);
+            if (!orHandleResponse) return null;
+            ({ statement, usedOrStatement, orQuantifier } = orHandleResponse);
 
             const orParts = statement.split(Splitters.or);
 
@@ -77,7 +89,7 @@ export class RegCode {
                     console.error(
                         "Could not find any definitions in part " + part
                     );
-                    process.exit(1);
+                    return null;
                 }
 
                 for (let partDefinition of allDefinitions) {
@@ -94,7 +106,14 @@ export class RegCode {
                     const quantifier = getQuantifier(partDefinition);
 
                     const hasQuantifier = !!quantifier;
-                    this.result += handleDefinition(definition, hasQuantifier);
+                    let newDefinition = handleDefinition(
+                        definition,
+                        hasQuantifier
+                    );
+
+                    if (!newDefinition) return null;
+
+                    this.result += newDefinition;
                     this.result += handleQuantifier(quantifier);
                 }
 

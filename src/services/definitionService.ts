@@ -27,13 +27,16 @@ function getDefinition(part: string) {
     return method;
 }
 
-function handleDefinition(definition: string, hasQuantifier: boolean) {
+function handleDefinition(
+    definition: string,
+    hasQuantifier: boolean
+): string | null {
     if (isValue(definition)) {
         const value = getValueFromDefinition(definition);
 
         if (value === null) {
             console.error("no value for definition " + definition);
-            process.exit(1);
+            return null;
         }
 
         return RegexDefinitions[value!.toLowerCase()];

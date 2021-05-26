@@ -28,6 +28,7 @@ function handleOr(statement: string) {
 
         let oldQuantifier = getQuantifier(quantifier);
         let newQuantifier = handleQuantifier(oldQuantifier);
+        if (!newQuantifier) return null;
 
         newQuantifier = newQuantifier.replace(
             `{${oldQuantifier}}`,
