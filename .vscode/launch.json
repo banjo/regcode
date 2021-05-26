@@ -7,9 +7,17 @@
         {
             "type": "pwa-node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Standard (does not rebuild)",
             "skipFiles": ["<node_internals>/**"],
             "program": "${workspaceFolder}\\dist\\src\\index.js",
+            "outFiles": ["${workspaceFolder}/**/*.js"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Alternative (rebuilds)",
+            "program": "${workspaceFolder}\\src\\index.ts",
+            "preLaunchTask": "npm: build",
             "outFiles": ["${workspaceFolder}/**/*.js"]
         }
     ]
