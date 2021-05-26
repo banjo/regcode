@@ -1,4 +1,5 @@
 import { modelQuantifier, Quantifiers } from "../helpers/quantifiers";
+import { RegexHelpers } from "../helpers/regexHelpers";
 
 function getQuantifier(part: string) {
     const endsWithQualifier = part.endsWith("}");
@@ -7,7 +8,22 @@ function getQuantifier(part: string) {
 
     let quantifier = part.split("{").pop()!.slice(0, -1);
 
+    console.log(" ", quantifier);
+
     return quantifier;
+}
+
+function getInlineQuantifiers(part: string) {
+    const matches = part.match(RegexHelpers.quantifier);
+    if (!matches) return null;
+
+    let quantifiers: string[] = [];
+    matches.forEach(m => {
+        let quantifier = m.slice(0, -1).slice(1);
+        quantifiers.push(quantifier);
+    });
+
+    return quantifiers;
 }
 
 function handleQuantifier(quantifier: string | null): string {
@@ -41,4 +57,4 @@ function handleQuantifier(quantifier: string | null): string {
     return result;
 }
 
-export { getQuantifier, handleQuantifier };
+export { getQuantifier, handleQuantifier, getInlineQuantifiers };

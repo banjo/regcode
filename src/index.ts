@@ -6,7 +6,7 @@ if (statement) console.log(new RegCode().convert(statement));
 export { RegCode };
 
 const regexConvert = new RegCode();
-const regexCode = "notOneOf([character])";
+const regexCode = "normal(tjena)normal(3) normal(2)";
 // const regexCode = "normal(hej)";
 console.log(regexCode);
 const result = regexConvert.convert(regexCode);

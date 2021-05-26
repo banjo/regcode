@@ -8,6 +8,7 @@ interface IQuantifiers {
     [key: string]: string;
 }
 
+// !update regex if you update quantifiers
 const Quantifiers: IQuantifiers = {
     oneOrMore: `+`,
     any: `*`,

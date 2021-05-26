@@ -13,12 +13,7 @@ import { Placeholders } from "./helpers/placeholders";
 // method:            oneOf()
 
 export class RegCode {
-    // TODO: add error handling
-    // TODO: check if valid regex, in methods and in general
-    // TODO: API to use in project
-    // TODO: general regex stuff
     // TODO: flags
-    // TODO: be able to send in { into method?
 
     convert(regCode: string): string {
         let regex = this.handleRegex(regCode);

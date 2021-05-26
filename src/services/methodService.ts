@@ -7,7 +7,7 @@ import {
 import { addEscapeToEscapers, replaceAll } from "./statementService";
 import { Splitters } from "../helpers/splitters";
 import { RegexDefinitions } from "../helpers/regexDefinitions";
-import { handleQuantifier, getQuantifier } from "./quantifierService";
+import { handleQuantifier, getInlineQuantifiers } from "./quantifierService";
 import { IllegalCombinations } from "../helpers/illegalCombinations";
 import { Placeholders } from "../helpers/placeholders";
 
@@ -114,13 +114,19 @@ function handleParameters(parameter: string) {
     );
 
     // convert quantifiers
-    let oldQuantifier = getQuantifier(modifiedParameters);
-    let newQuantifier = handleQuantifier(oldQuantifier);
+    let oldQuantifiers = getInlineQuantifiers(modifiedParameters);
 
-    modifiedParameters = modifiedParameters.replace(
-        `{${oldQuantifier}}`,
-        newQuantifier
-    );
+    if (oldQuantifiers) {
+        oldQuantifiers.forEach(q => {
+            let newQuantifier = handleQuantifier(q);
+
+            modifiedParameters = modifiedParameters.replace(
+                `{${q}}`,
+                newQuantifier
+            );
+        });
+    }
+
     return modifiedParameters;
 }
 
@@ -199,13 +205,21 @@ function handleBeforeOr(parameters: string, matches: string[]) {
 function setPlaceholdersForParameters(parameter: string) {
     let placeholderValues: string[] = [];
 
+    let parameters: RegExpMatchArray = [];
+
     const allCurrentValues = parameter.match(
         RegexHelpers.squareBracketsWithOptionalQuantifier
     );
 
-    if (allCurrentValues) {
-        let index = -1;
-        for (const parameterValue of allCurrentValues) {
+    if (allCurrentValues) parameters = [...allCurrentValues];
+
+    const quantifiers = parameter.match(RegexHelpers.quantifier);
+
+    if (quantifiers) parameters = [...parameters, ...quantifiers];
+
+    let index = -1;
+    if (parameters.length > 0) {
+        for (const parameterValue of parameters) {
             index++;
 
             placeholderValues.push(parameterValue);

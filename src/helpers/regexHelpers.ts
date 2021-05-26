@@ -20,4 +20,6 @@ export const RegexHelpers = {
         /(\[[a-zA-ZäöüßÄÖÜ]*\])({.*})?|[a-zA-ZäöüßÄÖÜ]*?PLACEHOLDERFOREARLYOR1STATEMENTEND({.*?})?/gm,
     inlineOrBeforeAndAfter: /[^\\]\|./gm,
     placeHolders: /PLACEHOLDERFOR(PARAMETER)*?\d+END/gm,
+    quantifier:
+        /\{((\d+)|(\d+,)|(\d+?,\d+?)|(oneOrMore|any|optional))(-(shortest|shorter|short))?\}/gm,
 };

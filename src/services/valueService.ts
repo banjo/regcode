@@ -8,6 +8,18 @@ function convertDefinitionToValues(definition: string) {
 
     if (allValues) {
         for (const parameterValue of allValues) {
+            let parameterIsValueDefinition = false;
+            Object.keys(RegexDefinitions).forEach(key => {
+                let keyAsDefinition = `[${key}]`;
+                if (keyAsDefinition === parameterValue) {
+                    parameterIsValueDefinition = true;
+                }
+            });
+
+            if (!parameterIsValueDefinition) {
+                continue;
+            }
+
             const value = getValueFromDefinition(parameterValue);
 
             if (!value) {
