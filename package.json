@@ -22,12 +22,15 @@
         "build": "npx tsc --project tsconfig.json",
         "format": "npx prettier --write .",
         "lint": "tslint -p tsconfig.json",
-        "prepublish": "tsc",
         "watch": "npx tsc -w",
         "run": "node dist/src/index.js",
         "start": "npm run build && npm run run",
         "test": "npx jest --runInBand --detectOpenHandles --colors --verbose --reporters=default",
-        "test:ci": "npx jest --ci --runInBand --silent --colors --coverage"
+        "test:ci": "npx jest --ci --runInBand --silent --colors --coverage",
+        "prepublish": "npm run build",
+        "prepublishOnly": "npm run test",
+        "version": "npm run format && git add -A src",
+        "postversion": "git push && git push --tags"
     },
     "keywords": [
         "regex",
