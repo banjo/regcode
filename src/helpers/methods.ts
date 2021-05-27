@@ -1,20 +1,17 @@
 interface IMethods {
-    normal: Function;
-    exact: Function;
-    regex: Function;
-    oneOf: Function;
-    notOneOf: Function;
-    lastOccurrenceOfWord: Function;
-    matchUpTo: Function;
-    word: Function;
-    hasAfter: Function;
-    hasBefore: Function;
-    notAfter: Function;
-    notBefore: Function;
-
-    // endsWith: Function;
-    // startsWith: Function;
-    [method: string]: Function;
+    normal: (parameter: string) => string;
+    exact: (parameter: string) => string;
+    regex: (parameter: string) => string;
+    oneOf: (parameter: string) => string;
+    notOneOf: (parameter: string) => string;
+    lastOccurrenceOfWord: (parameter: string) => string;
+    matchUpTo: (parameter: string) => string;
+    word: (parameter: string) => string;
+    hasAfter: (parameter: string) => string;
+    hasBefore: (parameter: string) => string;
+    notAfter: (parameter: string) => string;
+    notBefore: (parameter: string) => string;
+    [method: string]: (parameter: string) => string;
 }
 
 const Methods: IMethods = {
@@ -33,12 +30,6 @@ const Methods: IMethods = {
     notOneOf: (parameter: string): string => {
         return `[^${parameter}]`;
     },
-    // endsWith: (parameter: string): string => {
-    //     return `(${parameter})$`;
-    // },
-    // startsWith: (parameter: string): string => {
-    //     return `^(${parameter})`;
-    // },
     lastOccurrenceOfWord: (parameter: string): string => {
         return String.raw`(\b${parameter}\b)(?!.*\b\1\b)`;
     },

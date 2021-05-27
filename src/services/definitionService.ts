@@ -5,13 +5,13 @@ import { handleMethod } from "./methodService";
 import { getValueFromDefinition, isValue } from "./valueService";
 
 function getDefinition(part: string) {
-    const isValue = part.startsWith("[");
+    const isValueDefinition = part.startsWith("[");
     const endsWithQualifier = part.endsWith("}");
 
     // handle value
-    if (isValue && endsWithQualifier) {
+    if (isValueDefinition && endsWithQualifier) {
         return part.match(RegexHelpers.beforeSquiglyBrackets)![0];
-    } else if (isValue) {
+    } else if (isValueDefinition) {
         return part;
     }
 

@@ -32,10 +32,10 @@ function handleQuantifier(quantifier: string | null): string | null {
             const quantifiers = quantifier.split("-");
 
             for (const q of quantifiers) {
-                const customQuantifier = Quantifiers[q];
+                const custom = Quantifiers[q];
 
-                if (customQuantifier) {
-                    result += customQuantifier;
+                if (custom) {
+                    result += custom;
                 } else {
                     logger.error("Could not load quantifier " + q);
                     return null;

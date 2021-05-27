@@ -1,15 +1,15 @@
 import { logger } from "../config/logger";
 
 function isValid(regex: string): boolean {
-    let isValid = true;
+    /* tslint:disable */
     try {
         new RegExp(regex);
+        return true;
     } catch (e) {
         logger.log(e.message);
-        isValid = false;
+        return false;
     }
-
-    return isValid;
+    /* tslint:enable */
 }
 
 export { isValid };
