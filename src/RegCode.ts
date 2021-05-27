@@ -15,9 +15,8 @@ import { logger } from "./config/logger";
 
 export class RegCode {
     // TODO: flags
-    // TODO: fix tslint errors
 
-    convert(regCode: string): string | null {
+    convert(regCode: string): RegExp | null {
         this.result = "";
         const regex = this.handleRegex(regCode);
         if (!regex) return null;
@@ -27,7 +26,7 @@ export class RegCode {
             return null;
         }
 
-        return regex;
+        return new RegExp(regex);
     }
 
     match(regCode: string, toMatch: string): RegExpMatchArray | null {
