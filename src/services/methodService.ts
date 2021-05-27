@@ -272,9 +272,7 @@ function getMethodParameter(definition: string): string | null {
 function getMethodName(definition: string) {
     const match = definition.match(RegexHelpers.untilMethodStart);
     if (!match) {
-        logger.error(
-            `Could not get method name from definition ${definition}`
-        );
+        logger.error(`Could not get method name from definition ${definition}`);
         return null;
     }
 
