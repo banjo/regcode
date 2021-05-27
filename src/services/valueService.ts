@@ -1,3 +1,4 @@
+import { logger } from "../config/logger";
 import { RegexDefinitions } from "../helpers/regexDefinitions";
 import { RegexHelpers } from "../helpers/regexHelpers";
 
@@ -35,7 +36,7 @@ function getValueFromDefinition(definition: string): string | null {
     const match = definition.match(RegexHelpers.allInsideSquareBrackets);
 
     if (match === null) {
-        console.error("Could not find value in definition " + definition);
+        logger.error("Could not find value in definition " + definition);
         return null;
     }
 

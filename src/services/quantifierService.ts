@@ -1,3 +1,4 @@
+import { logger } from "../config/logger";
 import { modelQuantifier, Quantifiers } from "../helpers/quantifiers";
 import { RegexHelpers } from "../helpers/regexHelpers";
 
@@ -36,7 +37,7 @@ function handleQuantifier(quantifier: string | null): string | null {
                 if (customQuantifier) {
                     result += customQuantifier;
                 } else {
-                    console.error("Could not load quantifier " + q);
+                    logger.error("Could not load quantifier " + q);
                     return null;
                 }
             }

@@ -243,9 +243,7 @@ describe("statements", () => {
 
 describe("illegal combinations", () => {
     it("oneOf() and [notCharacter]", () => {
-        console.error = jest.fn();
         let result = regCode.convert("oneOf([notCharacter])");
-        expect(console.error).toHaveBeenCalled();
         expect(result).toBeNull();
     });
 });

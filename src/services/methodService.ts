@@ -10,6 +10,7 @@ import { RegexDefinitions } from "../helpers/regexDefinitions";
 import { handleQuantifier, getInlineQuantifiers } from "./quantifierService";
 import { IllegalCombinations } from "../helpers/illegalCombinations";
 import { Placeholders } from "../helpers/placeholders";
+import { logger } from "../config/logger";
 
 function handleMethod(definition: string, hasQuantifier: boolean) {
     definition = replaceAll(definition, Splitters.or, Placeholders.mainOr);
@@ -23,7 +24,7 @@ function useMethod(definition: string, hasQuantifier: boolean): string | null {
     const method = Methods[methodName];
 
     if (!method) {
-        console.error(`Method ${definition} does not exist`);
+        logger.error(`Method ${definition} does not exist`);
         return null;
     }
 
@@ -38,7 +39,7 @@ function useMethod(definition: string, hasQuantifier: boolean): string | null {
             method.name === combination.method &&
             parameter.includes(combination.valueDefinition)
         ) {
-            console.error(
+            logger.error(
                 `Illegal combination: cannot combine method ${method.name} and definition ${combination.valueDefinition}`
             );
 
@@ -49,7 +50,7 @@ function useMethod(definition: string, hasQuantifier: boolean): string | null {
     let result;
     if (method.name === Methods.regex.name) {
         if (parameter.includes(Placeholders.mainOr)) {
-            console.error("Cannot include or statement in regex definition.");
+            logger.error("Cannot include or statement in regex definition.");
             return null;
         }
         result = method(parameter);
@@ -259,7 +260,7 @@ function getMethodParameter(definition: string): string | null {
     const methodName = getMethodName(definition);
 
     if (!methodName) {
-        console.error(
+        logger.error(
             `Method parameter cannot be found for definition: ${definition}`
         );
         return null;
@@ -271,7 +272,7 @@ function getMethodParameter(definition: string): string | null {
 function getMethodName(definition: string) {
     const match = definition.match(RegexHelpers.untilMethodStart);
     if (!match) {
-        console.error(
+        logger.error(
             `Could not get method name from definition ${definition}`
         );
         return null;

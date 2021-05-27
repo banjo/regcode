@@ -1,9 +1,11 @@
+import { logger } from "../config/logger";
+
 function isValid(regex: string): boolean {
     let isValid = true;
     try {
         new RegExp(regex);
     } catch (e) {
-        console.log(e.message);
+        logger.log(e.message);
         isValid = false;
     }
 

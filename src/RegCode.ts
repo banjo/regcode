@@ -6,6 +6,7 @@ import { handleOr } from "./services/statementService";
 import { RegexHelpers } from "./helpers/regexHelpers";
 import { isValid } from "./services/regexService";
 import { Placeholders } from "./helpers/placeholders";
+import { logger } from "./config/logger";
 
 // statement:         oneOf([number]){3}[or][character]{3}
 // definition:        [number], oneOf()
@@ -14,7 +15,7 @@ import { Placeholders } from "./helpers/placeholders";
 
 export class RegCode {
     // TODO: flags
-    // TODO: return null instead of error
+    // TODO: fix tslint errors
 
     convert(regCode: string): string | null {
         this.result = "";
@@ -22,7 +23,7 @@ export class RegCode {
         if (!regex) return null;
 
         if (!isValid(regex)) {
-            console.error("Regex is not valid");
+            logger.error("Regex is not valid");
             return null;
         }
 
@@ -87,7 +88,7 @@ export class RegCode {
                 );
 
                 if (!allDefinitions) {
-                    console.error(
+                    logger.error(
                         "Could not find any definitions in part " + part
                     );
                     return null;

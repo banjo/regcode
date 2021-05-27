@@ -1,3 +1,4 @@
+import { logger } from "../config/logger";
 import { RegexDefinitions } from "../helpers/regexDefinitions";
 import { RegexHelpers } from "../helpers/regexHelpers";
 import { handleMethod } from "./methodService";
@@ -35,7 +36,7 @@ function handleDefinition(
         const value = getValueFromDefinition(definition);
 
         if (value === null) {
-            console.error("no value for definition " + definition);
+            logger.error("no value for definition " + definition);
             return null;
         }
 
