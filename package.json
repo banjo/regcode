@@ -1,7 +1,7 @@
 {
     "name": "regcode",
     "version": "0.0.1",
-    "description": "Create Regular Expressions easily with code",
+    "description": "Simple syntax to easily create Regular Expressions with code",
     "main": "./dist/src/index.js",
     "types": "./dist/src/index.d.ts",
     "dependencies": {
@@ -34,9 +34,15 @@
         "version": "npm run format && git add -A src",
         "postversion": "git push && git push --tags"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/banjo/regcode"
+    },
     "keywords": [
         "regex",
         "regular expression",
+        "regular expressions",
+        "regular expression generator",
         "generator",
         "regex generator",
         "regex code",
