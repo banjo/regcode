@@ -1,3 +1,4 @@
+import { Flags } from "../src/helpers/flags";
 import { modelQuantifier, Quantifiers } from "../src/helpers/quantifiers";
 import { RegexDefinitions } from "../src/helpers/regexDefinitions";
 import { RegCode } from "../src/RegCode";
@@ -223,5 +224,55 @@ describe("illegal combinations", () => {
     it("oneOf() and [notCharacter]", () => {
         let result = regCode.convert("oneOf([notCharacter])");
         expect(result).toBeNull();
+    });
+});
+
+describe("flags", () => {
+    it("<matchAll> exact(abc)[or]exact(def)normal(hej)", () => {
+        let code = "<matchAll> exact(abc)[or]exact(def)normal(hej)";
+        let expected = `/((abc)${RegexDefinitions.or}(def)hej)/${Flags.matchAll}`;
+        let result = regCode.convert(code);
+
+        expect(result).not.toBeNull();
+        expect(result!.toString()).toBe(expected);
+    });
+
+    it("<matchAll><unicode> exact(abc)[or]exact(def)normal(hej)", () => {
+        let code = "<matchAll><unicode> exact(abc)[or]exact(def)normal(hej)";
+        let expected = `/((abc)${RegexDefinitions.or}(def)hej)/${Flags.matchAll}${Flags.unicode}`;
+        let result = regCode.convert(code);
+
+        expect(result).not.toBeNull();
+        expect(result!.toString()).toBe(expected);
+    });
+
+    it("<matchAll><unicode><matchAll> exact(abc)[or]exact(def)normal(hej)", () => {
+        let code =
+            "<matchAll><unicode><matchAll> exact(abc)[or]exact(def)normal(hej)";
+        let expected = `/((abc)${RegexDefinitions.or}(def)hej)/${Flags.matchAll}${Flags.unicode}`;
+        let result = regCode.convert(code);
+
+        expect(result).not.toBeNull();
+        expect(result!.toString()).toBe(expected);
+    });
+
+    it("<matchAll><unicode> exact(abc)[or]exact(def)normal(hej) <matchAll>", () => {
+        let code =
+            "<matchAll><unicode> exact(abc)[or]exact(def)normal(hej) <matchAll>";
+        let expected = `/((abc)${RegexDefinitions.or}(def)hej)/${Flags.matchAll}${Flags.unicode}`;
+        let result = regCode.convert(code);
+
+        expect(result).not.toBeNull();
+        expect(result!.toString()).toBe(expected);
+    });
+
+    it("<matchAll><unicode> exact(abc)[or]exact(def)normal(hej)<matchAll>", () => {
+        let code =
+            "<matchAll><unicode> exact(abc)[or]exact(def)normal(hej)<matchAll>";
+        let expected = `/((abc)${RegexDefinitions.or}(def)hej)/${Flags.matchAll}${Flags.unicode}`;
+        let result = regCode.convert(code);
+
+        expect(result).not.toBeNull();
+        expect(result!.toString()).toBe(expected);
     });
 });

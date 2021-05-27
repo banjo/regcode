@@ -22,4 +22,5 @@ export const RegexHelpers = {
     placeHolders: /PLACEHOLDERFOR(PARAMETER)*?\d+END/gm,
     quantifier:
         /\{((\d+)|(\d+,)|(\d+?,\d+?)|(oneOrMore|any|optional))(-(shortest|shorter|short))?\}/gm,
+    flagBrackets: /<(ignoreCase|matchAll|multiline|dotAll|unicode)>/gm,
 };

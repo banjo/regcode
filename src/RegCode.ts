@@ -7,17 +7,22 @@ import { RegexHelpers } from "./helpers/regexHelpers";
 import { isValid } from "./services/regexService";
 import { Placeholders } from "./helpers/placeholders";
 import { logger } from "./config/logger";
+import { Flags } from "./helpers/flags";
 
 // statement:         oneOf([number]){3}[or][character]{3}
 // definition:        [number], oneOf()
 // value:             [number]
 // method:            oneOf()
+// flags:             <ignoreCase, matchAll, multiline, dotAll, unicode> separately
 
 export class RegCode {
-    // TODO: flags
+    private result = "";
+    private flags = "";
 
     convert(regCode: string): RegExp | null {
         this.result = "";
+        this.flags = "";
+
         const regex = this.handleRegex(regCode);
         if (!regex) return null;
 
@@ -26,7 +31,7 @@ export class RegCode {
             return null;
         }
 
-        return new RegExp(regex);
+        return new RegExp(regex, this.flags);
     }
 
     match(regCode: string, toMatch: string): RegExpMatchArray | null {
@@ -46,8 +51,6 @@ export class RegCode {
         return !!match;
     }
 
-    private result = "";
-
     private handleRegex(regex: string): string | null {
         const statements = regex.split(Splitters.divider);
         let orQuantifier = null;
@@ -64,8 +67,26 @@ export class RegCode {
                 });
             }
 
-            // ({ statement, usedOrStatement, orQuantifier } =
-            //     handleOr(statement));
+            // get flags
+            const flags = statement.match(RegexHelpers.flagBrackets);
+            if (flags) {
+                for (const flag of flags) {
+                    const flagWithoutBrackets = flag.slice(1).slice(0, -1);
+                    const flagDefinition = Flags[flagWithoutBrackets];
+
+                    if (!flagDefinition) {
+                        logger.error(`Flag ${flag} not defined`);
+                        return null;
+                    }
+
+                    if (!this.flags.includes(flagDefinition))
+                        this.flags += flagDefinition;
+
+                    statement = statement.replace(flag, "");
+                }
+            }
+
+            if (statement.length === 0) continue;
 
             const orHandleResponse = handleOr(statement);
             if (!orHandleResponse) return null;
