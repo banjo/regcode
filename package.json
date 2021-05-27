@@ -2,8 +2,8 @@
     "name": "regcode",
     "version": "0.0.1",
     "description": "Simple syntax to easily create Regular Expressions with code",
-    "main": "./dist/src/index.js",
-    "types": "./dist/src/index.d.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "dependencies": {
         "typescript": "^4.2.4",
         "winston": "^3.3.3"
@@ -24,7 +24,7 @@
         "format": "npx prettier --write .",
         "lint": "tslint -p tsconfig.json",
         "watch": "npx tsc -w",
-        "run": "node dist/src/index.js",
+        "run": "node dist/index.js",
         "start": "npm run build && npm run run",
         "test": "npx jest --runInBand  --colors --verbose --reporters=default",
         "test:ci": "npx jest --ci --runInBand --silent --colors --coverage",
