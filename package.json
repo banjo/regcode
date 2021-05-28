@@ -32,7 +32,11 @@
         "prepublishOnly": "npm run test && npm run lint",
         "preversion": "npm run lint",
         "version": "npm run format && git add -A src",
-        "postversion": "git push && git push --tags"
+        "postversion": "git push && git push --tags",
+        "docs:install": "cd ./docs/ && npm run install",
+        "docs:dev": "cd ./docs/ && npm run dev",
+        "docs:generate": "cd ./docs/ && npm run generate",
+        "docs:deploy": "curl -X POST -d {} https://api.netlify.com/build_hooks/60b0a85d97acf7a8cbb06058"
     },
     "repository": {
         "type": "git",
@@ -41,11 +45,16 @@
     "keywords": [
         "regex",
         "regular expression",
+        "regular expression code",
+        "regular expression code generator",
         "regular expressions",
+        "regular expressions code",
+        "regular expressions code generator",
         "regular expression generator",
         "generator",
         "regex generator",
         "regex code",
+        "regex code generator",
         "regex syntax"
     ],
     "author": "Anton Ödman",
