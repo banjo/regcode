@@ -6,7 +6,7 @@ category: 'getting started'
 features:
 ---
 
-Install the `RegCode API` to get started in seconds.
+Install the `Regcode API` to get started in seconds.
 
 ## Install
 
@@ -31,7 +31,7 @@ Install with your preferred method.
 
 ## Start
 
-Import to your project and create a RegCode class to begin.
+Import to your project and create a Regcode class to begin.
 
 ```ts
 import { RegCode } from "regcode";

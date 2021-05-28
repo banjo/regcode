@@ -4,26 +4,49 @@ description: 'Docs on how to understand RegCode - master Regular Expression easi
 position: 1
 category: 'getting started'
 features:
-  - Create Regular Expressions without any effort
+  - Create Regular Expressions with code
   - English-like syntax that is easy to read
+  - Easy to learn, easy to read
   - Simple API
-  - Convert to Regex or match directly
+  - Convert to Regex or match directly to a string
   - Get started in minutes
+  - No need to learn Regex to create an expression
 ---
 
-Create Regular Expressions easily with `RegCode`, using a simple, English-like, syntax. Use the `RegCode API` to match against a string directly or convert it to Regex.
+Create Regular Expressions easily with code. By using a simple, English-like syntax, you can create any expression you want without actually knowing Regular Expressions. Use the `Regcode API` to match against a string directly or convert it to Regex.
+
+<img src="/regcode-light.png" class="light-img" width="1280" height="640" alt=""/>
+<img src="/regcode-dark.png" class="dark-img" width="1280" height="640" alt=""/>
 
 ## Features
 
 <list :items="features"></list>
 
+## Regcode Example
 
-## Example
+To show the simplicy of Regcode, here is a basic examples of what you could do without any effort. As well as the much more advanced regex it will generate. This is regcode for a simple URL.
+
+`hasBefore(https://) normal(www.) [character]{any} normal(.com)[or]normal(.net)`
+
+By running this using the `Regcode API`, you will generate a fully working Regex code that you can use anywhere.
+
+`/(?<=https:\/\/)www\.[A-Za-z\u00C0-\u017F]*(\.com|\.net)/`
+
+This can then be used to match with a string. For example, this string.
+
+`The url is https://www.regcodejs.com, here you go!`
+
+By running a normal regex match on this string, it will match the value that matches simple regcode created above.
+
+`www.regcodejs.com`
+## API Example
+
+This exact example can be demontrated using the `Regcode API`.
+
 
 ```ts
 const regCode = new RegCode();
-const code =
-    "hasBefore(https://) normal(www.) [character]{any} normal(.com)[or]normal(.net)";
+const code = "hasBefore(https://) normal(www.) [character]{any} normal(.com)[or]normal(.net)";
 const sentenceToMatch = "The url is https://www.regcodejs.com, here you go!";
 
 // look for matches
@@ -34,20 +57,13 @@ const regex = regCode.convert(code);
 const match = sentenceToMatch.match(regex);
 ```
 
-#### Regcode
-`hasBefore(https://) normal(www.) [character]{any} normal(.com)[or]normal(.net)`
-
-#### Regex
-`/(?<=https:\/\/)www\.[A-Za-z\u00C0-\u017F]*(\.com|\.net)/`
-
-#### Match
-`["www.regcodejs.com"]`
 
 ## Explanation
 
 
 The example above is a very simple one. The `convert` method will return a regex statement that you can use any way you like. If you only want to find a match directly, you can do that using the `match` method.
 
+The match for this particlar regcode looks like this.
 
 <img src="/syntax-explanation-light.png" class="light-img" width="1280" height="640" alt=""/>
 <img src="/syntax-explanation-dark.png" class="dark-img" width="1280" height="640" alt=""/>

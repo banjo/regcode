@@ -1,12 +1,9 @@
 ---
-title: number
-description: 'Docs on how to understand RegCode - master Regular Expression easily with english like syntax'
+title: "[number]"
+description: 'How numbers value work in regcode'
 position: 1
 category: 'values'
 features:
-  - Feature 1
-  - Feature 2
-  - Feature 3
 ---
 
 <img src="/preview.png" class="light-img" width="1280" height="640" alt=""/>

@@ -6,7 +6,7 @@ category: 'getting started'
 features:
 ---
 
-Below are some simple examples that show you how much simpler `RegCode` is, both for the one creating it, but also the ones working with it. They may or may not be used in production, but they will showcase the difference between `Regcode` and `Regex`.
+Below are some simple examples that show you how simple `Regcode` is to yse, both for the one creating it, but also the one reading it. They are at a basic level, but will still showcase the difference between `Regcode` and `Regex`.
 
 ## Simple email
 
