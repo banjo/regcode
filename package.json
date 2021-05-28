@@ -33,7 +33,7 @@
         "preversion": "npm run lint",
         "version": "npm run format && git add -A src",
         "postversion": "git push && git push --tags",
-        "docs:install": "cd ./docs/ && npm run install",
+        "docs:install": "cd ./docs/ && npm install",
         "docs:dev": "cd ./docs/ && npm run dev",
         "docs:generate": "cd ./docs/ && npm run generate",
         "docs:deploy": "curl -X POST -d {} https://api.netlify.com/build_hooks/60b0a85d97acf7a8cbb06058"
