@@ -1,27 +1,39 @@
 ---
 title: Installation
-description: 'Docs on how to understand RegCode - master Regular Expression easily with english like syntax'
+description: 'Install RegCode to your project'
 position: 3
-category: 'introduction'
+category: 'getting started'
 features:
-  - Feature 1
-  - Feature 2
-  - Feature 3
 ---
 
-<img src="/preview.png" class="light-img" width="1280" height="640" alt=""/>
-<img src="/preview-dark.png" class="dark-img" width="1280" height="640" alt=""/>
+Install the `RegCode API` to get started in seconds.
 
-[Module]() for [NuxtJS](https://nuxtjs.org).
+## Install
 
-<alert type="success">
+Install with your preferred method.
 
-Your documentation has been created successfully!
+<code-group>
+  <code-block label="NPM"  active>
 
-</alert>
+  ```bash
+  npm install regcode
+  ```
 
-# Features
+  </code-block>
+    <code-block label="Yarn">
 
-<list :items="features"></list>
+  ```bash
+  yarn add regcode
+  ```
 
-<p class="flex items-center">Enjoy light and dark mode:&nbsp;<app-color-switcher class="inline-flex ml-2"></app-color-switcher></p>
+  </code-block>
+</code-group>
+
+## Start
+
+Import to your project and create a RegCode class to begin.
+
+```ts
+import { RegCode } from "regcode";
+const regCode = new RegCode();
+```

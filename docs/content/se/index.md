@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: getting started
 description: 'Docs on how to understand RegCode - master Regular Expression easily with english like syntax'
 position: 1
 category: ''
