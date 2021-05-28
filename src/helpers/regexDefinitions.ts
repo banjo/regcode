@@ -9,9 +9,9 @@ interface IRegexDefinitions {
     or: string;
     special: string;
     tab: string;
-    linebreak: string;
+    // linebreak: string;
     newline: string;
-    return: string;
+    // return: string;
     start: string;
     end: string;
     [key: string]: string;
@@ -26,11 +26,11 @@ export const RegexDefinitions: IRegexDefinitions = {
     notWhitespace: String.raw`\S`,
     any: String.raw`.`,
     or: "|",
-    special: String.raw`!#$%&'*+-/=?^_\`{|}~`,
+    special: String.raw`[!#$%&'*+-/=?^_\`{|}~]`,
     tab: String.raw`\t`,
-    linebreak: String.raw`\r\n`,
+    // linebreak: String.raw`\r\n`,
     newline: String.raw`(\r\n|\r|\n)`,
-    return: String.raw`\r`,
+    // return: String.raw`\r`,
     start: String.raw`^`,
     end: String.raw`$`,
 };
