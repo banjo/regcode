@@ -23,4 +23,5 @@ export const RegexHelpers = {
     quantifier:
         /\{((\d+)|(\d+,)|(\d+?,\d+?)|(oneOrMore|any|optional))(-(shortest|shorter|short))?\}/gm,
     flagBrackets: /<(ignoreCase|matchAll|multiline|dotAll|unicode)>/gm,
+    numberQuantifier: /(\d*\,\d*|\d*)/gm,
 };

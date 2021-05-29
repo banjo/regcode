@@ -34,8 +34,12 @@ function handleQuantifier(quantifier: string | null): string | null {
             for (const q of quantifiers) {
                 const custom = Quantifiers[q];
 
+                const numberQuantifier = q.match(RegexHelpers.numberQuantifier);
+
                 if (custom) {
                     result += custom;
+                } else if (numberQuantifier) {
+                    result += `{${q}}`;
                 } else {
                     logger.error("Could not load quantifier " + q);
                     return null;
