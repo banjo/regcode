@@ -1,7 +1,7 @@
 ---
-title: "[character]"
+title: "[notCharacter]"
 description: 'How the notCharacter value work in regcode'
-position: 1
+position: 12
 category: 'values'
 features:
 ---

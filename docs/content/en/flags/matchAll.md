@@ -1,7 +1,7 @@
 ---
 title: <matchAll>
 description: 'Docs on how to understand the matchAll flag in regcode'
-position: 1
+position: 32
 category: 'flags'
 features:
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Or"
 description: 'Docs on how to understand the or statement in regcode'
-position: 1
+position: 6
 category: 'logic'
 features:
 ---

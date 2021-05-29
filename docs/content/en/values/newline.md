@@ -1,7 +1,7 @@
 ---
 title: "[newline]"
 description: 'How the newline value work in regcode'
-position: 1
+position: 10
 category: 'values'
 features:
 ---

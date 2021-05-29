@@ -1,7 +1,7 @@
 ---
 title: "Quantifers"
 description: 'Docs on how to understand quantifiers in regcode'
-position: 1
+position: 7
 category: 'logic'
 features:
 ---

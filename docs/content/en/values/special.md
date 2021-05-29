@@ -1,7 +1,7 @@
 ---
 title: "[special]"
 description: 'How the special value work in regcode'
-position: 1
+position: 16
 category: 'values'
 features:
 ---

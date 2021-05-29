@@ -1,7 +1,7 @@
 ---
 title: <ignoreCase>
 description: 'Docs on how to understand the ignoreCase flag in regcode'
-position: 1
+position: 31
 category: 'flags'
 features:
 ---

@@ -1,7 +1,7 @@
 ---
 title: "[number]"
 description: 'How numbers value work in regcode'
-position: 1
+position: 15
 category: 'values'
 features:
 ---

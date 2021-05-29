@@ -20,7 +20,7 @@ Tihs simple syntax allows you to create your own expression in a matter of minut
 
 ```ts
 // regcode
-<matchAll> [start] normal(T[or]the) [whitespace]{1,2} exact(boy)[or]exact(girl) [end]
+<matchAll> [start] normal(T[or]the) [whitespace]{1,2} normal(boy)[or]normal(girl) [end]
 
 // regex
 /^(T|t)he\s{1,2}((boy)|(girl))$/g

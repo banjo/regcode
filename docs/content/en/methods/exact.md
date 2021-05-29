@@ -1,27 +1,32 @@
 ---
-title: exact
-description: 'Docs on how to understand RegCode - master Regular Expression easily with english like syntax'
-position: 1
+title: "exact()"
+description: 'Docs on how to understand the exact method in regcode'
+position: 21
 category: 'methods'
 features:
-  - Feature 1
-  - Feature 2
-  - Feature 3
 ---
 
-<img src="/preview.png" class="light-img" width="1280" height="640" alt=""/>
-<img src="/preview-dark.png" class="dark-img" width="1280" height="640" alt=""/>
+The `exact` method works almost the same as the `normal` method, except it wraps your statement into brackets `()`, so it will match exactly what's in them. Often the `normal` method is better.
 
-[Module]() for [NuxtJS](https://nuxtjs.org).
+`exact` will escape characters for you automatically.
 
-<alert type="success">
+## Usage
 
-Your documentation has been created successfully!
+`exact(PARAMETERS)`
 
-</alert>
+## Example
 
-# Features
+```ts
+const word = "Joee";
+const code = "exact(Joe)"
+// Match: "Joe"
 
-<list :items="features"></list>
+const word = "21-01-01 is same as 21/01/01";
+const code = "exact([number]{2}-[number]{2}-[number]{2})"
+// Match: "21-01-01"
 
-<p class="flex items-center">Enjoy light and dark mode:&nbsp;<app-color-switcher class="inline-flex ml-2"></app-color-switcher></p>
+```
+
+## Regex
+
+`exact` will just plainly translate into regex. `A` will be `a`, however, some characters will be escaped, like `.` which will become `\.`.

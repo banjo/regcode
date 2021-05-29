@@ -1,7 +1,7 @@
 ---
 title: <unicode>
 description: 'Docs on how to understand the unicode flag in regcode'
-position: 1
+position: 34
 category: 'flags'
 features:
 ---

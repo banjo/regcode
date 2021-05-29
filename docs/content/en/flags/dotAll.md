@@ -1,7 +1,7 @@
 ---
 title: <dotAll>
 description: 'Docs on how to understand the dotAll flag in regcode'
-position: 1
+position: 30
 category: 'flags'
 features:
 ---

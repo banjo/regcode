@@ -1,7 +1,7 @@
 ---
 title: "[tab]"
 description: 'How tabs value work in regcode'
-position: 1
+position: 18
 category: 'values'
 features:
 ---

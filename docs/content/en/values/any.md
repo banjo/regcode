@@ -1,7 +1,7 @@
 ---
 title: "[any]"
 description: 'How the dot (any) value works in regcode'
-position: 1
+position: 8
 category: 'values'
 features:
 ---

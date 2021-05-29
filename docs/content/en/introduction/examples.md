@@ -77,7 +77,7 @@ This partcilar regcode will accept two date formats: `2021-01-01` or `21-01-01`.
 
 ```ts
 // regcode
-<matchAll> exact([number]{4}-[number]{2}-[number]{2})[or]exact([number]{2}-[number]{2}-[number]{2})
+<matchAll> normal([number]{4}-[number]{2}-[number]{2})[or]normal([number]{2}-[number]{2}-[number]{2})
 
 // regex
 /((\d{4}-\d{2}-\d{2})|(\d{2}-\d{2}-\d{2}))/g

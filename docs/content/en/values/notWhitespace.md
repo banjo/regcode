@@ -1,7 +1,7 @@
 ---
 title: "[notWhitespace]"
 description: 'How the notWhitespace value work in regcode'
-position: 1
+position: 14
 category: 'values'
 features:
 ---

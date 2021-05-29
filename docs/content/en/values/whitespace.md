@@ -1,7 +1,7 @@
 ---
 title: "[whitespace]"
 description: 'How the whitespace value works in regcode'
-position: 1
+position: 19
 category: 'values'
 features:
 ---

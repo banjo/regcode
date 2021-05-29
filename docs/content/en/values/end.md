@@ -1,7 +1,7 @@
 ---
 title: "[end]"
 description: 'How the end value works in regcode'
-position: 1
+position: 10
 category: 'values'
 features:
 ---

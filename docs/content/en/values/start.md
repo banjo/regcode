@@ -1,7 +1,7 @@
 ---
 title: "[start]"
 description: 'How the start value works in regcode'
-position: 1
+position: 17
 category: 'values'
 features:
 ---

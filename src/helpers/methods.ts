@@ -4,8 +4,8 @@ interface IMethods {
     regex: (parameter: string) => string;
     oneOf: (parameter: string) => string;
     notOneOf: (parameter: string) => string;
-    lastOccurrenceOfWord: (parameter: string) => string;
-    matchUpTo: (parameter: string) => string;
+    // lastOccurrenceOfWord: (parameter: string) => string;
+    // matchUpTo: (parameter: string) => string;
     word: (parameter: string) => string;
     hasAfter: (parameter: string) => string;
     hasBefore: (parameter: string) => string;
@@ -30,15 +30,15 @@ const Methods: IMethods = {
     notOneOf: (parameter: string): string => {
         return `[^${parameter}]`;
     },
-    lastOccurrenceOfWord: (parameter: string): string => {
-        return String.raw`(\b${parameter}\b)(?!.*\b\1\b)`;
-    },
+    // lastOccurrenceOfWord: (parameter: string): string => {
+    //     return String.raw`(\b${parameter}\b)(?!.*\b\1\b)`;
+    // },
     word: (parameter: string): string => {
         return String.raw`\b${parameter}\b`;
     },
-    matchUpTo: (parameter: string): string => {
-        return String.raw`^(.*?)(${parameter})`;
-    },
+    // matchUpTo: (parameter: string): string => {
+    //     return String.raw`^(.*?)(${parameter})`;
+    // },
     hasAfter: (parameter: string): string => {
         return String.raw`(?=${parameter})`;
     },
@@ -46,7 +46,7 @@ const Methods: IMethods = {
         return String.raw`(?<=${parameter})`;
     },
     notAfter: (parameter: string): string => {
-        return String.raw`(?!${parameter}) `;
+        return String.raw`(?!${parameter})`;
     },
     notBefore: (parameter: string): string => {
         return String.raw`(?<!${parameter})`;

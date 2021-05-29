@@ -1,7 +1,7 @@
 ---
 title: "[character]"
 description: 'How characters value work in regcode'
-position: 1
+position: 9
 category: 'values'
 features:
 ---

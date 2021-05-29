@@ -1,7 +1,7 @@
 ---
 title: "[notNumber]"
 description: 'How the notNumber value work in regcode'
-position: 1
+position: 13
 category: 'values'
 features:
 ---
