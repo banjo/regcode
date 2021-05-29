@@ -18,8 +18,8 @@
 
 
 <p align="center">
-  <a href="https://docs.regcodejs.com">Docs</a> •
-  <a href="https://www.regcodejs.com">Regcode Live</a> •
+  <a href="https://docs.regcodejs.com" target="_blank">Docs</a> •
+  <a href="https://www.regcodejs.com" target="_blank">Regcode Live</a> •
   <a href="#heavy_check_mark-features">Features</a> •
   <a href="#examples">Examples</a> •
   <a href="#cloud-api-example">API</a> •
