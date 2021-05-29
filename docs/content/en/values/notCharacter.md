@@ -8,12 +8,11 @@ features:
 
 notCharacter will match anything but a character. The opposite of the character value.
 
+## Usage
+
+`[character]`
 ## Regex
 
 ```
 [^A-Za-z\u00C0-\u017F]
 ```
-
-## Usage
-
-`[character]`

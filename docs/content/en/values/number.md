@@ -8,12 +8,11 @@ features:
 
 Number represents all numerical values from `0-9`.
 
+## Usage
+
+`[number]`
 ## Regex
 
 ```
 [0-9]
 ```
-
-## Usage
-
-`[number]`

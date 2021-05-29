@@ -8,12 +8,11 @@ features:
 
 notWhitespace will match anything but a whitespace. The opposite of the whitespace value.
 
+## Usage
+
+`[notWhitespace]`
 ## Regex
 
 ```
 \S
 ```
-
-## Usage
-
-`[notWhitespace]`

@@ -8,12 +8,13 @@ features:
 
 The any value represents a dot (`.`), which is almost anything.
 
+## Usage
+
+`[any]`
+
+
 ## Regex
 
 ```
 .
 ```
-
-## Usage
-
-`[any]`

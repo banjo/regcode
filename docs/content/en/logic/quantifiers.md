@@ -1,12 +1,16 @@
 ---
-title: "[or]"
-description: 'Docs on how to understand the or statement in regcode'
+title: "Quantifers"
+description: 'Docs on how to understand quantifiers in regcode'
 position: 1
-category: 'or'
+category: 'logic'
 features:
 ---
 
 Or is used when you have multiple values and you want to match at least with one of them.
+
+## Usage
+
+`STATEMENT[or]STATEMENT[or{3}]`
 
 ## Example
 
@@ -28,10 +32,6 @@ const code = "<matchAll> [number][or]normal(abc)[or]normal(def)"
 // Match: "1", "abc"
 
 ```
-
-## Usage
-
-`STATEMENT[or]STATEMENT[or{3}]`
 
 ## Information
 

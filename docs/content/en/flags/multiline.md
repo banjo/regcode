@@ -8,6 +8,10 @@ features:
 
 The multiline mode only affects the behaviour of the `[start]` and `[end]` values. In multiline mode they match not only the beginning and ending of a string, they also match the start or end of a line.
 
+## Usage
+
+`<multiline>`
+
 ## Example
 
 ```ts
@@ -27,7 +31,3 @@ regCode.match(codeWithFlag, wordToMatch);       // "1", "2", "3"
 ```regex
 //m
 ```
-
-## Usage
-
-`<multiline>`

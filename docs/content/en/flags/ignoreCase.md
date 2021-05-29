@@ -8,6 +8,11 @@ features:
 
 Using the ignoreCase flag, your search will be case-insensetive. There will, for example, be no difference between `A` and `a`. 
 
+## Usage
+
+`<ignoreCase>`
+
+
 ## Example
 
 ```ts
@@ -24,7 +29,3 @@ regCode.match(codeWithFlag, wordToMatch);       // "Joe"
 ```regex
 //i
 ```
-
-## Usage
-
-`<ignoreCase>`

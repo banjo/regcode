@@ -8,12 +8,11 @@ features:
 
 notNumber will match anything but a number. The opposite of the number value.
 
+## Usage
+
+`[notNumber]`
 ## Regex
 
 ```
 \D
 ```
-
-## Usage
-
-`[notNumber]`

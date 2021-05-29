@@ -8,12 +8,11 @@ features:
 
 The whitespace value simply represents a whitespace (` `) in regcode.
 
+## Usage
+
+`[whitespace]`
 ## Regex
 
 ```
 \s
 ```
-
-## Usage
-
-`[whitespace]`

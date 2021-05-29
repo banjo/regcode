@@ -8,12 +8,11 @@ features:
 
 The special value represents the most basic special characters, like `-` or `(` for example.
 
+## Usage
+
+`[character]`
 ## Regex
 
 ```
 [!#$%&'*+-/=?^_`{|}~]
 ```
-
-## Usage
-
-`[character]`

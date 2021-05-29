@@ -8,6 +8,10 @@ features:
 
 The matchAll flag allows you to look for multiple occurrences of a match, instead of just one. 
 
+## Usage
+
+`<matchAll>`
+
 ## Example
 
 ```ts
@@ -24,7 +28,3 @@ regCode.match(codeWithFlag, wordToMatch);       // 25
 ```regex
 //g
 ```
-
-## Usage
-
-`<matchAll>`

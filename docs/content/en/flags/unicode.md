@@ -10,6 +10,11 @@ Enables full Unicode support in the search.This is not widely supported in regco
 
 For example, `\p{...}` (where dots can be anything), allows you to match for different Unicode properties. You can read more about that [here](https://javascript.info/regexp-unicode). For example, `\p{L}` allows you to match for all letters in Unicode.
 
+## Usage
+
+`<unicode>`
+
+
 ## Example
 
 This example is used in the link about Unicode above.
@@ -28,7 +33,3 @@ regCode.match(codeWithFlag, wordToMatch);       // "ბㄱ"
 ```regex
 //u
 ```
-
-## Usage
-
-`<unicode>`

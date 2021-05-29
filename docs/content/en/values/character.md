@@ -8,12 +8,11 @@ features:
 
 The character value represents most characters, not only the English ones. 
 
+## Usage
+
+`[character]`
 ## Regex
 
 ```
 [A-Za-z\u00C0-\u017F]
 ```
-
-## Usage
-
-`[character]`

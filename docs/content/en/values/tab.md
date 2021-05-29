@@ -8,12 +8,11 @@ features:
 
 The tab value represents a tab. 
 
+## Usage
+
+`[tab]`
 ## Regex
 
 ```
 \t`
 ```
-
-## Usage
-
-`[tab]`

@@ -8,6 +8,10 @@ features:
 
 The `[any]`value (or `.` in regex) in regcode matches almost anything, except for newlines (`[newline]` in regcode, `\n` in regex). the dotAll flag allows `[any]` to match newlines as well.
 
+## Usage
+
+`<dotAll>`
+
 ## Example
 
 ```ts
@@ -24,7 +28,3 @@ regCode.match(codeWithFlag, wordToMatch);       // "A\nB"
 ```regex
 //s
 ```
-
-## Usage
-
-`<dotAll>`
