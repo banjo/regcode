@@ -65,17 +65,6 @@ Methods lets you pass in your own data to use. All different method does differe
 
 A quantifer can be appended to most types, as it quantifies how many times it can occur. There are several different ways to write them. The most important part is that you place them directly after the statement, without space.
 
-* `[number]{3}` - a number 3 times.
-* `[number]{2,4}` - a number 2 to 4 times.
-* `[number]{optional}` - a number exactly 0 or 1 time.
-* `[number]{any}` - a number 0 or more times.
-* `[number]{oneOrMore}` - a number 1 or more times.
-
-The three quantifiers `optional`, `any` and `oneOrMore` will as a standard match the longest sentence it will find. If you want to find the shortest match instead, use the `shortest` (or `short` or `shorter`) appended to the end.
-
-* `[number]{optional-shortest}` - a number exactly 0 or 1 time.
-* `[number]{any-shortest}` - a number 0 or more times.
-* `[number]{oneOrMore-shortest}` - a number 1 or more times.
 
 
 ### Or

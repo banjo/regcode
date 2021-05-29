@@ -6,55 +6,56 @@ category: 'logic'
 features:
 ---
 
-Or is used when you have multiple values and you want to match at least with one of them.
-
+A quantifer can be appended to most types, as it quantifies how many times it can occur. There are several different ways to write them. The most important part is that you place them directly after the statement, without space.
 ## Usage
 
-`STATEMENT[or]STATEMENT[or{3}]`
+`STATEMENT{any}`
 
 ## Example
 
 ```ts
-const word = "abc123";
-const code = "[character][or][number][or{6}]"    
-// Match: "abc123"
+const word = "Joee";
+const code = "normal(Jo) normal(e){any}"
+// Match: "Joee"
 
-const word = "Phone: 123";
-const code = "normal(Phone: [number]{2,4}[or][number]{7})" 
-// Match: "Phone: 123"
+const word = "Joeee but with way too many e's";
+const code = "normal(Jo) normal(e){any-shortest}" 
+// Match: "Joe"
 
-const word = "The boy";
-const code = "normal(T[or]the boy)" 
-// Match: "The boy"             
+const word = "https://www.regcodejs.com is same as www.regcodejs.com";
+const code = "<matchAll> normal(https://){optional} normal(www.regcodejs.com)" 
+// Match: "https://www.regcodejs.com", "www.regcodejs.com"
 
-const word = "This is the 1st time with abc for me."
-const code = "<matchAll> [number][or]normal(abc)[or]normal(def)"
-// Match: "1", "abc"
+const word = "123455555"
+const code = "normal(1234) [number]{2,5}"
+// Match: "123455555"
 
+const word = "123455555"
+const code = "normal(1234) [number]{2,5-shortest}"
+// Match: "123455"
 ```
 
 ## Information
 
-Everything that you want to be included in an or-statement must be **WITHOUT** whitespaces (`[number][or][character]`). 
+Quantifiers can be written both as numbers (`{3}, {2,3}`) or with code (`{any}, {optional}`)
 
-Or can be used outside of methods, and will wrap everything into one big statement. (`[number][or][character][or]normal(123)`)
+* `[number]{3}` - a number 3 times.
+* `[number]{2,4}` - a number 2 to 4 times.
+* `[number]{optional}` - a number exactly 0 or 1 time.
+* `[number]{any}` - a number 0 or more times.
+* `[number]{oneOrMore}` - a number 1 or more times.
 
-It can also be used within method parameters. Take this example: 
+The three quantifiers `optional`, `any` and `oneOrMore` will as a standard match the longest sentence it will find. If you want to find the shortest match instead, use the `shortest` (or `short` or `shorter`) appended to the end.
 
-```
-normal([number][or]hello)
-```
+* `[number]{optional-shortest}` - a number exactly 0 or 1 time.
+* `[number]{any-shortest}` - a number 0 or more times.
+* `[number]{oneOrMore-shortest}` - a number 1 or more times.
 
-It will only wrap `[number]` on the left side and `h` on the right side. Meaning `number or h, followed by ello`. 
-
-Or-statements have their own quantifiers (`[or{...}]`), so that you can allow for how many times that particular match can occur. It needs to be wrapped at the end of the statement.
-
-```
-[number][or][character][or{4}]
-```
 
 ## Regex
 
-```regex
-|
-```
+Quantifiers can be showed in many different ways.
+- `{2,4}` -> `{2,4}`
+- `{3-shortest}` -> `{3}?` 
+- `{any}` -> `*`
+- `{optional}` -> `?`
