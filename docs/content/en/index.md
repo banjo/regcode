@@ -28,7 +28,7 @@ To show the simplicy of Regcode, here is a basic examples of what you could do w
 
 `hasBefore(https://) normal(www.) [character]{any} normal(.com)[or]normal(.net)`
 
-By running this using the `Regcode API`, you will generate a fully working Regex code that you can use anywhere.
+By running this using the **Regcode API**, you will generate a fully working Regex code that you can use anywhere.
 
 `/(?<=https:\/\/)www\.[A-Za-z\u00C0-\u017F]*(\.com|\.net)/`
 
@@ -36,9 +36,10 @@ This can then be used to match with a string. For example, this string.
 
 `The url is https://www.regcodejs.com, here you go!`
 
-By running a normal regex match on this string, it will match the value that matches simple regcode created above.
+By running the regex (or regcode) statement on this string, it will return all matches it has found, resulting in the line below.
 
 `www.regcodejs.com`
+
 ## API Example
 
 This exact example can be demontrated using the `Regcode API`.
@@ -57,13 +58,12 @@ const regex = regCode.convert(code);
 const match = sentenceToMatch.match(regex);
 ```
 
-
 ## Explanation
 
 
 The example above is a very simple one. The `convert` method will return a regex statement that you can use any way you like. If you only want to find a match directly, you can do that using the `match` method.
 
-The match for this particlar regcode looks like this.
+The match for this particular regcode looks like this.
 
 <img src="/syntax-explanation-light.png" class="light-img" width="1280" height="640" alt=""/>
 <img src="/syntax-explanation-dark.png" class="dark-img" width="1280" height="640" alt=""/>

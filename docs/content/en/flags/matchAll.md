@@ -1,27 +1,30 @@
 ---
-title: matchAll
-description: 'Docs on how to understand RegCode - master Regular Expression easily with english like syntax'
+title: <matchAll>
+description: 'Docs on how to understand the matchAll flag in regcode'
 position: 1
 category: 'flags'
 features:
-  - Feature 1
-  - Feature 2
-  - Feature 3
 ---
 
-<img src="/preview.png" class="light-img" width="1280" height="640" alt=""/>
-<img src="/preview-dark.png" class="dark-img" width="1280" height="640" alt=""/>
+The matchAll flag allows you to look for multiple occurrences of a match, instead of just one. 
 
-[Module]() for [NuxtJS](https://nuxtjs.org).
+## Example
 
-<alert type="success">
+```ts
+const wordToMatch = "I am 25 years old";
+const codeWithoutFlag = "[number]";
+const codeWithFlag = "<matchAll> [number]";
 
-Your documentation has been created successfully!
+regCode.match(codeWithoutFlag, wordToMatch);    // 2
+regCode.match(codeWithFlag, wordToMatch);       // 25
+```
 
-</alert>
+## Regex
 
-# Features
+```regex
+//g
+```
 
-<list :items="features"></list>
+## Usage
 
-<p class="flex items-center">Enjoy light and dark mode:&nbsp;<app-color-switcher class="inline-flex ml-2"></app-color-switcher></p>
+`<matchAll>`

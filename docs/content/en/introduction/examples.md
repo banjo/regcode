@@ -14,7 +14,7 @@ Matching email with Regex is no easy task, and this should be no means be used t
 
 **Regcode**
 
-```regex
+```ts
 // regcode
 <matchAll><multiline> [character][or][number][or]oneOf(._+-)[or{any}] normal(@) [character]{any} normal(.) [character]{2,6}
 
@@ -46,7 +46,7 @@ Besides that, we don't want to include the `https://` before or the `.<whatever>
 
 **Regcode**
 
-```regex
+```ts
 // regcode
 <matchAll> hasBefore(https://) [character]{any} normal(.) [character]{any} hasAfter(.[character]{2,6});
 
@@ -75,7 +75,7 @@ This partcilar regcode will accept two date formats: `2021-01-01` or `21-01-01`.
 
 **Regcode**
 
-```regex
+```ts
 // regcode
 <matchAll> exact([number]{4}-[number]{2}-[number]{2})[or]exact([number]{2}-[number]{2}-[number]{2})
 
