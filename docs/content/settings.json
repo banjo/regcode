@@ -1,10 +1,10 @@
 {
-    "title": "Nuxt Content",
-    "url": "",
+    "title": "Docs for RegcodeJS",
+    "url": "https://www.regcodejs.com",
     "logo": {
         "light": "/logo-light.svg",
         "dark": "/logo-dark.svg"
     },
-    "github": "Anton Ödman",
+    "github": "banjo",
     "twitter": "@banjoanton"
 }

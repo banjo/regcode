@@ -12,3 +12,7 @@ coverage
 dist
 sw.*
 .env
+
+# Local Netlify folder
+.netlify
+/.netlify/state.json
