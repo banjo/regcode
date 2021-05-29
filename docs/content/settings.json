@@ -2,8 +2,8 @@
     "title": "Docs for RegcodeJS",
     "url": "https://www.regcodejs.com",
     "logo": {
-        "light": "/logo-light.svg",
-        "dark": "/logo-dark.svg"
+        "light": "/text-logo.png",
+        "dark": "/text-logo.png"
     },
     "github": "banjo",
     "twitter": "@banjoanton"
