@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <a href="http://www.regcodejs.com"><img src="https://raw.githubusercontent.com/banjo/regcode/main/docs/static/regcode-logo.png" alt="Regcode logo" width="200"></a>
+  <a href="http://www.regcodejs.com"><img src="https://raw.githubusercontent.com/banjo/regcode/main/docs/static/regcode-logo.svg" alt="Regcode logo" width="200"></a>
   <br>
   Regcode
   <br>

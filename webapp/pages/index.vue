@@ -168,7 +168,7 @@ body {
 
 .input {
   font-size: 14px !important;
-  width: 80% !important;
+  width: 100% !important;
 }
 
 .match-group {

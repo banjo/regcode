@@ -12,8 +12,17 @@
         rel="noopener noreferrer"
         class="btn btn-success"
       >
-        Documentation
+        Docs
       </a>
+      <a
+        href="https://docs.regcodejs.com/introduction/examples"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-dark"
+      >
+        Examples
+      </a>
+
       <a
         href="https://github.com/banjo/regcode"
         target="_blank"
