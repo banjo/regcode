@@ -1,6 +1,6 @@
 {
     "name": "regcode",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "description": "Create regular expressions easily with code",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
