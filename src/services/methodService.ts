@@ -109,7 +109,7 @@ function handleParameters(parameter: string): string | null {
 
     // restore placeholders for or brackets
     modifiedParameters = modifiedParameters
-        .replace(Placeholders.leftBracket, "(")
+        .replace(Placeholders.leftBracket, "(?:")
         .replace(Placeholders.rightBracket, ")");
 
     // add or part
