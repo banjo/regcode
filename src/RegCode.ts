@@ -95,7 +95,7 @@ export class RegCode {
             const orParts = statement.split(Splitters.or);
 
             // set full or statement in brackets
-            if (usedOrStatement) this.result += "(";
+            if (usedOrStatement) this.result += "(?:";
 
             let index = -1;
             let orPlaceholderIndex = 0;

@@ -1,7 +1,7 @@
 {
     "name": "regcode",
     "version": "0.0.4",
-    "description": "Simple syntax to easily create Regular Expressions with code",
+    "description": "Create regular expressions easily with code",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "dependencies": {

@@ -19,7 +19,7 @@ const Methods: IMethods = {
         return parameter;
     },
     exact: (parameter: string): string => {
-        return `(${parameter})`;
+        return `(?:${parameter})`;
     },
     regex: (parameter: string): string => {
         return parameter;
