@@ -40,6 +40,13 @@ function getValueFromDefinition(definition: string): string | null {
         return null;
     }
 
+    const valueExists = RegexDefinitions[match.toString()];
+
+    if (!valueExists) {
+        logger.error(`Value ${match} does not exist`);
+        return null;
+    }
+
     return match[0];
 }
 

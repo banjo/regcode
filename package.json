@@ -36,7 +36,7 @@
         "docs:dev": "cd ./docs/ && npm run dev",
         "docs:generate": "cd ./docs/ && npm run generate",
         "docs:deploy": "npm run docs:generate && netlify unlink && netlify link --id f4674917-e55d-4add-bc79-a695c5270022 && netlify deploy --dir=docs/dist --prod",
-        "webapp:install": "cd ./webapp/ && npm run install",
+        "webapp:install": "cd ./webapp/ && npm install",
         "webapp:dev": "cd ./webapp/ && npm run dev",
         "webapp:generate": "cd ./webapp/ && npm run generate",
         "webapp:deploy": "npm run webapp:generate && netlify unlink && netlify link --id 4110d77b-e9e1-4993-a7bf-85bab06a3b8e && netlify deploy --dir=webapp/dist --prod"

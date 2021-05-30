@@ -108,9 +108,7 @@ export class RegCode {
                 );
 
                 if (!allDefinitions) {
-                    logger.error(
-                        "Could not find any definitions in part " + part
-                    );
+                    logger.error(`${part} is not a valid definition`);
                     return null;
                 }
 

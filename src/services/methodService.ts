@@ -50,7 +50,7 @@ function useMethod(definition: string, hasQuantifier: boolean): string | null {
     let result;
     if (method.name === Methods.regex.name) {
         if (parameter.includes(Placeholders.mainOr)) {
-            logger.error("Cannot include or statement in regex definition.");
+            logger.error("Cannot include or-statement in regex method.");
             return null;
         }
         result = method(parameter);
@@ -261,7 +261,7 @@ function getMethodParameter(definition: string): string | null {
 
     if (!methodName) {
         logger.error(
-            `Method parameter cannot be found for definition: ${definition}`
+            `Method parameter cannot be found for method: ${definition}`
         );
         return null;
     }

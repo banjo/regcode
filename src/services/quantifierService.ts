@@ -41,7 +41,7 @@ function handleQuantifier(quantifier: string | null): string | null {
                 } else if (numberQuantifier) {
                     result += `{${q}}`;
                 } else {
-                    logger.error("Could not load quantifier " + q);
+                    logger.error(`${q} is not a valid quantifier`);
                     return null;
                 }
             }

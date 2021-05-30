@@ -36,7 +36,7 @@ function handleDefinition(
         const value = getValueFromDefinition(definition);
 
         if (value === null) {
-            logger.error("no value for definition " + definition);
+            logger.error(`${definition} is not a valid value`);
             return null;
         }
 
