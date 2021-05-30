@@ -14,8 +14,12 @@
           aria-describedby="button-addon2"
           @change="convertToRegex($event)"
           v-model="regCode"
-          :class="regCodeError !== '' ? 'is-invalid' : 'is-valid'"
+          :class="{
+            'is-invalid': regCodeError && regCodeSubmitted,
+            'is-valid': !regCodeError && regCodeSubmitted,
+          }"
         />
+        <div class="error-message" v-if="regCodeError">{{ regCodeError }}</div>
       </div>
 
       <label for="regex-result" class="form-label">Regex</label>
@@ -47,6 +51,9 @@
         <label for="match-group" class="form-label" v-if="matches.length !== 0">
           {{ matches.length > 1 ? 'Matches' : 'Match' }}
         </label>
+        <label for="match-group" class="form-label" v-if="matches.length === 0">
+          No matches
+        </label>
         <div class="match-group">
           <div
             class="match-card"
@@ -74,15 +81,21 @@ export default Vue.extend({
     return {
       regCode: '',
       regCodeError: '',
+      regCodeSubmitted: false,
       regex: '',
       placeholder: '<matchAll> hasBefore(https://) normal(www.) [character]{any} normal(.com)[or]normal(.net)' as string,
-      textToMatch:
-        'The URL is https://www.regcodejs.com, here you go! https://www.regcodejs.com',
+      textToMatch: 'The URL is https://www.regcodejs.com, here you go!',
       matches: [] as string[],
     }
   },
   methods: {
     convertToRegex: function (event: Event) {
+      if (this.regCode.length === 0) {
+        this.regCodeSubmitted = false
+      } else {
+        this.regCodeSubmitted = true
+      }
+
       if (this.regCode === '') {
         this.regCode = this.placeholder
       }
@@ -101,23 +114,21 @@ export default Vue.extend({
       let regexValue
       try {
         regexValue = regCode.convert(code)
+        this.regCodeError = ''
       } catch (error) {
         this.regCodeError = error.message
         return
       }
 
-      // TODO: handle regex
       if (!regexValue) {
-        console.log('No regex value')
+        console.error('No regex value')
         return
       }
 
       this.regex = regexValue.toString()
       const matches = this.textToMatch.match(regexValue)
 
-      // TODO: handle matches
       if (matches == null) {
-        console.log('no matches')
         return []
       }
 
@@ -130,8 +141,6 @@ export default Vue.extend({
     if (matches) {
       this.matches = matches
     }
-
-    console.log(this.matches)
   },
 })
 </script>
@@ -177,5 +186,12 @@ body {
   padding: 0.5rem;
   border-radius: 0.2rem;
   background-color: #c3e6cb;
+}
+
+.error-message {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
 }
 </style>
