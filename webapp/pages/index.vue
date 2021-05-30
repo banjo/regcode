@@ -1,36 +1,139 @@
 <template>
   <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        Regcode
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+    <div class="sub">
+      <info />
+
+      <label for="regcode-input" class="form-label">Regcode</label>
+      <div class="input-group mb-3 input">
+        <input
+          type="text"
+          class="form-control"
+          :placeholder="placeholder"
+          id="regcode-input"
+          aria-label="Regcode"
+          aria-describedby="button-addon2"
+          @change="convertToRegex($event)"
+          v-model="regCode"
+          :class="regCodeError !== '' ? 'is-invalid' : 'is-valid'"
+        />
+      </div>
+
+      <label for="regex-result" class="form-label">Regex</label>
+      <div class="input-group input mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="regex-result"
+          aria-label="Regex"
+          aria-describedby="button-addon2"
+          v-model="regex"
+          readonly
+          value="Mark"
+        />
+      </div>
+
+      <label for="regex-text" class="form-label">Text</label>
+      <div class="input regex-text mb-3">
+        <textarea
+          id="regex-text"
+          class="form-control"
+          contenteditable="true"
+          v-model="textToMatch"
+          @input="convertToRegex($event)"
+        ></textarea>
+      </div>
+
+      <div v-if="matches">
+        <label for="match-group" class="form-label" v-if="matches.length !== 0">
+          {{ matches.length > 1 ? 'Matches' : 'Match' }}
+        </label>
+        <div class="match-group">
+          <div
+            class="match-card"
+            v-for="(match, index) in matches"
+            :key="index"
+          >
+            {{ match }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { RegCode } from 'regcode'
 import Vue from 'vue'
+import Info from '../components/Info.vue'
 
-export default Vue.extend({})
+const regCode = new RegCode()
+
+export default Vue.extend({
+  components: { Info },
+  data: function () {
+    return {
+      regCode: '',
+      regCodeError: '',
+      regex: '',
+      placeholder: '<matchAll> hasBefore(https://) normal(www.) [character]{any} normal(.com)[or]normal(.net)' as string,
+      textToMatch:
+        'The URL is https://www.regcodejs.com, here you go! https://www.regcodejs.com',
+      matches: [] as string[],
+    }
+  },
+  methods: {
+    convertToRegex: function (event: Event) {
+      if (this.regCode === '') {
+        this.regCode = this.placeholder
+      }
+
+      const matches = this.getMatches(this.regCode)
+
+      if (matches == null) {
+        this.matches = []
+        this.regex = ''
+        return
+      }
+
+      this.matches = matches
+    },
+    getMatches(code: string): string[] | undefined {
+      let regexValue
+      try {
+        regexValue = regCode.convert(code)
+      } catch (error) {
+        this.regCodeError = error.message
+        return
+      }
+
+      // TODO: handle regex
+      if (!regexValue) {
+        console.log('No regex value')
+        return
+      }
+
+      this.regex = regexValue.toString()
+      const matches = this.textToMatch.match(regexValue)
+
+      // TODO: handle matches
+      if (matches == null) {
+        console.log('no matches')
+        return []
+      }
+
+      return matches
+    },
+  },
+  mounted() {
+    const matches = this.getMatches(this.placeholder)
+
+    if (matches) {
+      this.matches = matches
+    }
+
+    console.log(this.matches)
+  },
+})
 </script>
 
 <style>
@@ -43,33 +146,36 @@ export default Vue.extend({})
   text-align: center;
 }
 
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+.sub {
+  width: 100%;
+  display: grid;
+  place-items: center;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+body {
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-.links {
-  padding-top: 15px;
+.input {
+  font-size: 14px !important;
+  width: 80% !important;
+}
+
+.match-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 50rem;
+}
+
+.match-card {
+  margin: 0.4rem 1rem;
+  color: #155724;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  background-color: #c3e6cb;
 }
 </style>
