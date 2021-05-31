@@ -81,8 +81,18 @@ export default Vue.extend({})
   color: white;
 }
 
+.primary-color:hover {
+  color: white;
+  background-color: #098cbb;
+}
+
 .secondary-color {
   background-color: #2e3192;
+  color: white;
+}
+
+.secondary-color:hover {
+  background-color: #23256b;
   color: white;
 }
 </style>
