@@ -16,4 +16,7 @@ export default theme({
         ],
         defaultLocale: "en",
     },
+    head: {
+        link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    },
 });
