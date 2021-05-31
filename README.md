@@ -1,10 +1,7 @@
 
 <h1 align="center">
   <br>
-  <a href="http://www.regcodejs.com"><img src="https://raw.githubusercontent.com/banjo/regcode/main/docs/static/regcode-logo.svg" alt="Regcode logo" width="200"></a>
-  <br>
-  Regcode
-  <br>
+  <a href="http://www.regcodejs.com"><img src="https://raw.githubusercontent.com/banjo/regcode/main/docs/static/regcode-logo-text.svg" alt="Regcode logo" width="200"></a>
 </h1>
 
 <h4 align="center">Create regular expressions easily with code</h4>
@@ -29,7 +26,7 @@
 ---
 
 
-![screenshot](https://raw.githubusercontent.com/banjo/regcode/main/docs/static/regcode-light.png)
+![screenshot](https://raw.githubusercontent.com/banjo/regcode/main/docs/static/regcode-light.svg)
 
 
 ## :heavy_check_mark: Features
@@ -54,11 +51,11 @@ const regex = "/[A-Za-z\u00C0-\u017F]/"
 
 // use logic
 const code = "[character]{oneOrMore}][or][number]"
-const regex = "/([A-Za-z\u00C0-\u017F]+|\d)/"
+const regex = "/(?:[A-Za-z\u00C0-\u017F]+|\d)/"
 
 // use methods
 const code = "normal(H[or]hello) [whitespace] [character]{oneOrMore}"
-const regex = "/(H|h)ello\s[A-Za-z\u00C0-\u017F]+/"
+const regex = "/(?:H|h)ello\s[A-Za-z\u00C0-\u017F]+/"
 ```
 
 ## :cloud: API Example
@@ -67,7 +64,7 @@ Install Regcode with NPM or Yarn.
 
 ```bash
 # npm
-npm install regcode 
+npm install regcode --save
 
 # yarn
 yarn add regcode
@@ -81,14 +78,14 @@ import { RegCode } from "regcode";
 
 const regCode = new RegCode();
 const code = "hasBefore(https://) normal(www.) [character]{any} normal(.com)[or]normal(.net)";
-const sentenceToMatch = "The url is https://www.regcodejs.com, here you go!";
+const sentenceToMatch = "The URL is https://www.regcodejs.com, here you go!";
 
 // look for matches
-const match = regCode.match(code, sentenceToMatch);
+const match = regCode.match(code, sentenceToMatch); // ["www.regcodejs.com"]
 
 // or convert to regex and match the normal way
 const regex = regCode.convert(code);
-const match = sentenceToMatch.match(regex);
+const match = sentenceToMatch.match(regex);         // ["www.regcodejs.com"]
 ```
 
 ## License

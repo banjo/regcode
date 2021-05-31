@@ -23,7 +23,7 @@ Tihs simple syntax allows you to create your own expression in a matter of minut
 <matchAll> [start] normal(T[or]the) [whitespace]{1,2} normal(boy)[or]normal(girl) [end]
 
 // regex
-/^(T|t)he\s{1,2}((boy)|(girl))$/g
+/^(?:T|t)he\s{1,2}(?:boy|girl)$/g
 ```
 
 ### Flags
@@ -63,7 +63,7 @@ Methods lets you pass in your own data to use. All different method does differe
 
 </alert>
 
-A quantifer can be appended to most types, as it quantifies how many times it can occur. There are several different ways to write them. The most important part is that you place them directly after the statement, without space.
+A quantifier can be appended to most types, as it quantifies how many times it can occur. There are several different ways to write them. The most important part is that you place them directly after the statement, without space.
 
 
 

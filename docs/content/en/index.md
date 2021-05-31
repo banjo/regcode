@@ -15,8 +15,14 @@ features:
 
 Create Regular Expressions easily with code. By using a simple, English-like syntax, you can create any expression you want without actually knowing Regular Expressions. Use the `Regcode API` to match against a string directly or convert it to Regex.
 
-<img src="/regcode-light.png" class="light-img" width="1280" height="640" alt=""/>
-<img src="/regcode-dark.png" class="dark-img" width="1280" height="640" alt=""/>
+<img src="/regcode-light.svg" class="light-img" width="1280" height="640" alt=""/>
+<img src="/regcode-dark.svg" class="dark-img" width="1280" height="640" alt=""/>
+
+<alert type="info">
+
+You can try it out yourself [here](https://www.regcodejs.com).
+
+</alert>
 
 ## Features
 
@@ -24,13 +30,13 @@ Create Regular Expressions easily with code. By using a simple, English-like syn
 
 ## Regcode Example
 
-To show the simplicy of Regcode, here is a basic examples of what you could do without any effort. As well as the much more advanced regex it will generate. This is regcode for a simple URL.
+To show the simplicity of Regcode, here is a basic example of what you could do without any effort. As well as the much more advanced regex it will generate. This is regcode for a simple URL.
 
 `hasBefore(https://) normal(www.) [character]{any} normal(.com)[or]normal(.net)`
 
 By running this using the **Regcode API**, you will generate a fully working Regex code that you can use anywhere.
 
-`/(?<=https:\/\/)www\.[A-Za-z\u00C0-\u017F]*(\.com|\.net)/`
+`/(?<=https:\/\/)www\.[A-Za-z\u00C0-\u017F]*(?:\.com|\.net)/`
 
 This can then be used to match with a string. For example, this string.
 
@@ -42,7 +48,7 @@ By running the regex (or regcode) statement on this string, it will return all m
 
 ## API Example
 
-This exact example can be demontrated using the `Regcode API`.
+This exact example can be demonstrated using the `Regcode API`.
 
 
 ```ts

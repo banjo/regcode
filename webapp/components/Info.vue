@@ -1,8 +1,8 @@
 <template>
   <div>
-    <img class="logo" src="regcode-logo.svg" alt="regcode logo" />
+    <img class="logo" src="regcode-logo-text.svg" alt="regcode logo" />
 
-    <h1 class="title">regcode</h1>
+    <!-- <h1 class="title">regcode</h1> -->
     <h2 class="subtitle">Create regular expressions easily with code</h2>
 
     <div class="links">
@@ -10,7 +10,7 @@
         href="https://docs.regcodejs.com/"
         target="_blank"
         rel="noopener noreferrer"
-        class="btn btn-success"
+        class="btn primary-color"
       >
         Docs
       </a>
@@ -18,7 +18,7 @@
         href="https://docs.regcodejs.com/introduction/examples"
         target="_blank"
         rel="noopener noreferrer"
-        class="btn btn-dark"
+        class="btn secondary-color"
       >
         Examples
       </a>
@@ -35,7 +35,7 @@
         href="https://www.npmjs.com/package/regcode"
         target="_blank"
         rel="noopener noreferrer"
-        class="btn btn-danger"
+        class="btn btn-outline-danger"
       >
         NPM
       </a>
@@ -73,6 +73,16 @@ export default Vue.extend({})
 }
 
 .logo {
-  width: 120px;
+  width: 250px;
+}
+
+.primary-color {
+  background-color: #00aeef;
+  color: white;
+}
+
+.secondary-color {
+  background-color: #2e3192;
+  color: white;
 }
 </style>

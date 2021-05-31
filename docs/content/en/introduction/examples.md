@@ -6,7 +6,7 @@ category: 'getting started'
 features:
 ---
 
-Below are some simple examples that show you how simple `Regcode` is to yse, both for the one creating it, but also the one reading it. They are at a basic level, but will still showcase the difference between `Regcode` and `Regex`.
+Below are some simple examples that show you how simple `Regcode` is to use, both for the one creating it, but also the one reading it. They are at a basic level, but will still showcase the difference between `Regcode` and `Regex`.
 
 ## Simple email
 
@@ -19,7 +19,7 @@ Matching email with Regex is no easy task, and this should be no means be used t
 <matchAll><multiline> [character][or][number][or]oneOf(._+-)[or{any}] normal(@) [character]{any} normal(.) [character]{2,6}
 
 // regex
-/([A-Za-z\u00C0-\u017F]|\d|[\._\+\-])*@[A-Za-z\u00C0-\u017F]*\.[A-Za-z\u00C0-\u017F]{2,6}/gm
+/(?:[A-Za-z\u00C0-\u017F]|\d|[\._\+\-])*@[A-Za-z\u00C0-\u017F]*\.[A-Za-z\u00C0-\u017F]{2,6}/gm
 ```
 
 
@@ -80,7 +80,7 @@ This partcilar regcode will accept two date formats: `2021-01-01` or `21-01-01`.
 <matchAll> normal([number]{4}-[number]{2}-[number]{2})[or]normal([number]{2}-[number]{2}-[number]{2})
 
 // regex
-/((\d{4}-\d{2}-\d{2})|(\d{2}-\d{2}-\d{2}))/g
+/(?:\d{4}-\d{2}-\d{2}|\d{2}-\d{2}-\d{2})/g
 ```
 
 **String to search**

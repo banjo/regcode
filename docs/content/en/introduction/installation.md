@@ -16,7 +16,7 @@ Install with your preferred method.
   <code-block label="NPM"  active>
 
   ```bash
-  npm install regcode
+  npm install regcode --save
   ```
 
   </code-block>
