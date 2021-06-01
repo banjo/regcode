@@ -167,8 +167,12 @@ body {
 }
 
 .input {
-  font-size: 14px !important;
   width: 100% !important;
+  max-width: 600px;
+}
+
+input {
+  font-size: 13px !important;
 }
 
 .match-group {
