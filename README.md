@@ -50,7 +50,7 @@ const code = "[character]"
 const regex = "/[A-Za-z\u00C0-\u017F]/"
 
 // use logic
-const code = "[character]{oneOrMore}][or][number]"
+const code = "[character]{oneOrMore}[or][number]"
 const regex = "/(?:[A-Za-z\u00C0-\u017F]+|\d)/"
 
 // use methods
