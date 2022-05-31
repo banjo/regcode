@@ -7,7 +7,7 @@
 
     <div class="links">
       <a
-        href="https://docs.regcodejs.com/"
+        href="https://regcode-docs.netlify.app/"
         target="_blank"
         rel="noopener noreferrer"
         class="btn primary-color"
@@ -15,7 +15,7 @@
         Docs
       </a>
       <a
-        href="https://docs.regcodejs.com/introduction/examples"
+        href="https://regcode-docs.netlify.app/introduction/examples"
         target="_blank"
         rel="noopener noreferrer"
         class="btn secondary-color"

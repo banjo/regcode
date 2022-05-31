@@ -15,7 +15,7 @@
 
 
 <p align="center">
-  <a href="https://docs.regcodejs.com" target="_blank">Docs</a> •
+  <a href="https://regcode-docs.netlify.app" target="_blank">Docs</a> •
   <a href="https://www.regcode.netlify.app" target="_blank">Demo</a> •
   <a href="#heavy_check_mark-features">Features</a> •
   <a href="#examples">Examples</a> •
@@ -41,7 +41,7 @@
 
 ## :clipboard: Examples
 
-These are some basic examples, there are many more examples over at our [docs](https://docs.regcodejs.com) page. You can also try it interactively [here](https://www.regcode.netlify.app).
+These are some basic examples, there are many more examples over at our [docs](https://regcode-docs.netlify.app) page. You can also try it interactively [here](https://www.regcode.netlify.app).
 
 
 ```ts
