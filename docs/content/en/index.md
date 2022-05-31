@@ -20,7 +20,7 @@ Create Regular Expressions easily with code. By using a simple, English-like syn
 
 <alert type="info">
 
-You can try it out yourself [here](https://www.regcodejs.com).
+You can try it out yourself [here](https://www.regcode.netlify.app).
 
 </alert>
 

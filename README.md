@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <a href="http://www.regcodejs.com"><img src="https://raw.githubusercontent.com/banjo/regcode/main/docs/static/regcode-logo-text.svg" alt="Regcode logo" width="200"></a>
+  <a href="http://www.regcode.netlify.app"><img src="https://raw.githubusercontent.com/banjo/regcode/main/docs/static/regcode-logo-text.svg" alt="Regcode logo" width="200"></a>
 </h1>
 
 <h4 align="center">Create regular expressions easily with code</h4>
@@ -16,7 +16,7 @@
 
 <p align="center">
   <a href="https://docs.regcodejs.com" target="_blank">Docs</a> •
-  <a href="https://www.regcodejs.com" target="_blank">Demo</a> •
+  <a href="https://www.regcode.netlify.app" target="_blank">Demo</a> •
   <a href="#heavy_check_mark-features">Features</a> •
   <a href="#examples">Examples</a> •
   <a href="#cloud-api-example">API</a> •
@@ -41,7 +41,7 @@
 
 ## :clipboard: Examples
 
-These are some basic examples, there are many more examples over at our [docs](https://docs.regcodejs.com) page. You can also try it interactively [here](https://www.regcodejs.com).
+These are some basic examples, there are many more examples over at our [docs](https://docs.regcodejs.com) page. You can also try it interactively [here](https://www.regcode.netlify.app).
 
 
 ```ts
